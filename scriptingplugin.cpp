@@ -35,7 +35,7 @@
 #include "scriptmanager.h"
 #include "runscriptlocatorfilter.h"
 
-#include <QtCore/QtPlugin>
+#include <QtPlugin>
 
 using namespace Scripting::Internal;
 

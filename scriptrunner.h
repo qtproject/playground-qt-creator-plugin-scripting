@@ -33,10 +33,10 @@
 #ifndef SCRIPTRUNNER_H
 #define SCRIPTRUNNER_H
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QSharedPointer>
-#include <QtScript/QScriptEngine>
+#include <QObject>
+#include <QString>
+#include <QSharedPointer>
+#include <QScriptEngine>
 
 namespace Scripting {
 namespace Internal {

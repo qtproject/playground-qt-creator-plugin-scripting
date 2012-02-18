@@ -49,16 +49,15 @@
 
 #include <utils/outputformat.h>
 
-#include <QtGui/QShortcut>
-#include <QtGui/QMainWindow>
-
-#include <QtCore/QDir>
-#include <QtCore/QFileInfo>
-#include <QtCore/QDebug>
-#include <QtCore/QFileSystemWatcher>
-#include <QtCore/QFile>
-#include <QtCore/QTextStream>
-#include <QtCore/QSignalMapper>
+#include <QShortcut>
+#include <QMainWindow>
+#include <QDir>
+#include <QFileInfo>
+#include <QDebug>
+#include <QFileSystemWatcher>
+#include <QFile>
+#include <QTextStream>
+#include <QSignalMapper>
 
 
 using namespace Scripting;

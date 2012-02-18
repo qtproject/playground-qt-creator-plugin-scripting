@@ -33,7 +33,7 @@
 #ifndef SCRIPTING_GLOBAL_H
 #define SCRIPTING_GLOBAL_H
 
-#include <QtCore/QtGlobal>
+#include <QtGlobal>
 
 #if defined(SCRIPTING_LIBRARY)
 #  define SCRIPTINGSHARED_EXPORT Q_DECL_EXPORT

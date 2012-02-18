@@ -1,5 +1,5 @@
 <plugin name=\"Scripting\" version=\"$$QTCREATOR_VERSION\" compatVersion=\"$$QTCREATOR_VERSION\">
-    <vendor>Kläralvdalens Datakonsult AB</vendor>
+    <vendor>KDAB</vendor>
     <copyright>(C) Kläralvdalens Datakonsult AB</copyright>
     <license>
 Commercial Usage
