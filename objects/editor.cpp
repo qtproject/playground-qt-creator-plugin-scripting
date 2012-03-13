@@ -33,7 +33,7 @@
 #include "editor.h"
 
 #include <coreplugin/editormanager/ieditor.h>
-#include <coreplugin/ifile.h>
+#include <coreplugin/idocument.h>
 
 using namespace Scripting;
 using namespace Scripting::Internal;
@@ -58,7 +58,7 @@ bool Editor::exists()
 bool Editor::save()
 {
     QString errorString;
-    return m_editor->file()->save(&errorString);
+    return m_editor->document()->save(&errorString);
 }
 
 int Editor::currentLine()
@@ -78,8 +78,8 @@ void Editor::gotoLine(int line, int column)
 
 QString Editor::fileName()
 {
-    if (m_editor->file())
-        return m_editor->file()->fileName();
+    if (m_editor->document())
+        return m_editor->document()->fileName();
     return QString();
 }
 
