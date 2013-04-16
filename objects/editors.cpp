@@ -36,7 +36,8 @@
 
 #include <coreplugin/editormanager/editormanager.h>
 #include <texteditor/basetexteditor.h>
-
+#include <coreplugin/idocument.h>
+#include <coreplugin/editormanager/ieditor.h>
 using namespace Scripting;
 using namespace Scripting::Internal;
 
@@ -45,9 +46,7 @@ Editors::Editors(QObject *parent) :
 {
 }
 
-Editor * Editors::current()
-{
-    Core::IEditor *editor = Core::EditorManager::instance()->currentEditor();
+static Editor *wrapEditor(Core::IEditor *editor) {
     Editor *wrapper;
 
     if (qobject_cast<TextEditor::BaseTextEditor*>(editor))
@@ -56,4 +55,28 @@ Editor * Editors::current()
         wrapper = new Editor;
     wrapper->setEditor(editor);
     return wrapper;
+}
+
+Editor * Editors::current()
+{
+        return wrapEditor(Core::EditorManager::instance()->currentEditor());
+}
+
+bool Editors::hasEditor(const QString &fileName)
+{
+    return Core::EditorManager::instance()->hasEditor(fileName);
+}
+
+QStringList Editors::existingEditors()
+{
+    QStringList result;
+    foreach (Core::IEditor* editor, Core::EditorManager::instance()->openedEditors()) {
+        result.append(editor->document()->fileName());
+    }
+    return result;
+}
+
+Editor *Editors::openFile(const QString &fileName)
+{
+    return wrapEditor(Core::EditorManager::instance()->openEditor(fileName));
 }

@@ -34,6 +34,7 @@
 #define SCRIPTING_INTERNAL_EDITORS_H
 
 #include <QObject>
+#include <QStringList>
 
 namespace Scripting {
 namespace Internal {
@@ -48,6 +49,9 @@ public:
 
 public slots:
     static Editor * current();
+    static bool hasEditor(const QString& fileName);
+    static QStringList existingEditors();
+    static Editor* openFile(const QString& fileName);
 };
 
 } // namespace Internal
