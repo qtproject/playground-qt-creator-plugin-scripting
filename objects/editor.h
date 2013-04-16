@@ -52,14 +52,14 @@ public:
     void setEditor(Core::IEditor *editor);
 
 public slots:
-    bool exists();
+    bool exists() const;
     bool save();
 
-    int currentLine();
-    int currentColumn();
+    int currentLine() const;
+    int currentColumn() const;
     void gotoLine(int line, int column=0);
 
-    QString fileName();
+    QString fileName() const;
 
 protected:
     Core::IEditor *editor();

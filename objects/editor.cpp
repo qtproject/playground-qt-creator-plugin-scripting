@@ -50,7 +50,7 @@ void Editor::setEditor(Core::IEditor *editor)
     m_editor = editor;
 }
 
-bool Editor::exists()
+bool Editor::exists() const
 {
     return m_editor->widget()!=0;
 }
@@ -61,12 +61,12 @@ bool Editor::save()
     return m_editor->document()->save(&errorString);
 }
 
-int Editor::currentLine()
+int Editor::currentLine() const
 {
     return m_editor->currentLine();
 }
 
-int Editor::currentColumn()
+int Editor::currentColumn() const
 {
     return m_editor->currentColumn();
 }
@@ -76,7 +76,7 @@ void Editor::gotoLine(int line, int column)
     m_editor->gotoLine(line, column);
 }
 
-QString Editor::fileName()
+QString Editor::fileName() const
 {
     if (m_editor->document())
         return m_editor->document()->fileName();
