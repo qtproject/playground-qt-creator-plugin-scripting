@@ -42,6 +42,7 @@ class IEditor;
 
 namespace Scripting {
 namespace Internal {
+class Editors;
 
 class Editor : public QObject
 {
@@ -63,6 +64,9 @@ public slots:
 
 protected:
     Core::IEditor *editor();
+
+    friend class Editors;
+    virtual void waitForInitialized() {};
 
 private:
     Core::IEditor *m_editor;
