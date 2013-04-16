@@ -36,10 +36,10 @@
 namespace Scripting {
 namespace Constants {
 
-const char S_SCRIPTDIRECTORY[] = "qtc-scripts";
-const char S_EXTENSION[] = "qs";
+const QString S_SCRIPTDIRECTORY = QLatin1String("qtc-scripts");
+const QString S_EXTENSION = QLatin1String("qs");
 const char S_SHORTCUT_SUFFIX[] = " scripts.";
-const char S_GLOBAL_NAME[] = "Global";
+const QString S_GLOBAL_NAME = QLatin1String("Global");
 
 
 } // namespace Scripting

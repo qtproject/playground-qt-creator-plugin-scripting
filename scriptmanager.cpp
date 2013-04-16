@@ -112,7 +112,7 @@ QString ScriptManager::defaultDirectory() const
 
 QString ScriptManager::scriptDirectory(ProjectExplorer::Project *project) const
 {
-    const QString &path = project->projectDirectory() + '/' + Constants::S_SCRIPTDIRECTORY;
+    const QString &path = project->projectDirectory() + QLatin1Char('/') + Constants::S_SCRIPTDIRECTORY;
 
     if (QFile::exists(path))
         return path;
@@ -128,11 +128,11 @@ QStringList scriptListFromDir(const QString &path)
 {
     QDir dir(path);
     QStringList filter;
-    filter << QString("*.") + Constants::S_EXTENSION;
+    filter << QLatin1String("*.") + Constants::S_EXTENSION;
     QStringList files = dir.entryList(filter, QDir::Files);
 
     for (int i=0; i<files.count(); ++i) {
-        QString fileName = dir.absolutePath() + '/' + files.at(i);
+        QString fileName = dir.absolutePath() + QLatin1Char('/') + files.at(i);
         files[i] = fileName;
     }
 
