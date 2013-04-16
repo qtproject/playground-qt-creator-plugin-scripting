@@ -41,7 +41,9 @@
 namespace Scripting {
 namespace Internal {
 
-/* Script Runner.
+/**
+ * \brief Script Runner
+ *
  * Provide a script engine and a way to run scripts.
  * The script engine is initialized with interfaces.
  */

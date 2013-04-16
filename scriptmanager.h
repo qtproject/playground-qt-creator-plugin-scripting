@@ -51,9 +51,11 @@ namespace Internal {
 
 class ScriptRunner;
 
-/* Manager for scripts.
+/**
+ * \brief Manager for scripts.
+ *
  * Manage all scripts available to the user, and run them.
- * The scripts are could be:
+ * The scripts could be:
  *  - in the default script directory: userRessource/scripts
  *  - in a qtc-scripts directory of a project
  *

@@ -37,6 +37,25 @@
 
 #include <extensionsystem/iplugin.h>
 
+/**
+    \mainpage
+
+    <h1>Overall design</h1>
+
+    \li It all starts in \ref Scripting::Internal::ScriptingPlugin which is executed by Qt Creator at startup.
+    \li The script runner registers a locator action called <b>rs</b> - see \ref Scripting::Internal::RunScriptLocatorFilter
+    \li The ground work of finding scripts, registering shortcuts and starting their execution is done in \ref Scripting::Internal::ScriptManager
+    \li \ref Scripting::Internal::ScriptRunner contains the JavaScript engine and register the objects available in the scripts
+
+    <h1>Objects available in the scripts</h1>
+
+    \li <b>console</b> accesses an instance of \ref Scripting::Internal::Console
+    \code console.log("Hello world")\endcode
+
+    \li <b>editors</b> accesses an instance of \ref Scripting::Internal::Editors.
+    \code editors.current().selectAll()\endcode
+*/
+
 namespace Scripting {
 namespace Internal {
 

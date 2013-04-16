@@ -38,6 +38,12 @@
 namespace Scripting {
 namespace Internal {
 
+/**
+ * @brief Interface to the Locator.
+ *
+ * The script runner adds a "rs" entry in the locator.
+ * \see ScriptManager
+ */
 class RunScriptLocatorFilter : public Locator::ILocatorFilter
 {
     Q_OBJECT
