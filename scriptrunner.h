@@ -41,6 +41,15 @@
 namespace Scripting {
 namespace Internal {
 
+struct ErrorMessage {
+    ErrorMessage() : hasError(false) {}
+    ErrorMessage(int line, const QString& message) : hasError(true), line(line), message(message) {}
+
+    bool hasError;
+    int line;
+    QString message;
+};
+
 /**
  * \brief Script Runner
  *
@@ -57,7 +66,7 @@ public:
     virtual ~ScriptRunner();
 
     // Run a script
-    bool runScript(const QString &sourceCode, const QString fileName=QString());
+    ErrorMessage runScript(const QString &sourceCode, const QString fileName=QString());
 
     QScriptEnginePtr scriptEngine() { return ensureEngineInitialized(); }
 

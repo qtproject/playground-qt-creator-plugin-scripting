@@ -150,12 +150,13 @@ void ScriptManager::runFile(const QString &fileName)
         Core::MessageManager::instance()->showOutputPane();
         Core::MessageManager::instance()->printToOutputPane(tr("Start %1...").arg(fileName),
                                                             Utils::NormalMessageFormat);
-        if(m_runner->runScript(sourceCode, fileName))
+        ErrorMessage message = m_runner->runScript(sourceCode, fileName);
+        if (message.hasError)
+            Core::MessageManager::instance()->printToOutputPane(tr("Error at line %1: %2\n").arg(message.line).arg(message.message),
+                                                                Utils::ErrorMessageFormat);
+        else
             Core::MessageManager::instance()->printToOutputPane(tr("The script  exited normally\n"),
                                                                 Utils::NormalMessageFormat);
-        else
-            Core::MessageManager::instance()->printToOutputPane(tr("The script has unexpectedly finished.\n"),
-                                                                Utils::ErrorMessageFormat);
     }
     else {
         Core::MessageManager::instance()->printToOutputPane(tr("Error: %1 doesn't exist.\n").arg(fileName),

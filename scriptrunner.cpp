@@ -59,12 +59,12 @@ ScriptRunner::~ScriptRunner()
 }
 
 
-bool ScriptRunner::runScript(const QString &sourceCode, const QString fileName)
+ErrorMessage ScriptRunner::runScript(const QString &sourceCode, const QString fileName)
 {
     ensureEngineInitialized();
 
     m_engine->pushContext();
-    m_engine->evaluate(sourceCode, fileName);
+    QScriptValue result = m_engine->evaluate(sourceCode, fileName);
 
     const bool failed = m_engine->hasUncaughtException();
     m_engine->popContext();
@@ -74,7 +74,10 @@ bool ScriptRunner::runScript(const QString &sourceCode, const QString fileName)
     if (editorManager->currentEditor())
         editorManager->currentEditor()->widget()->setFocus(Qt::OtherFocusReason);
 
-    return !failed;
+    if ( failed)
+        return ErrorMessage(m_engine->uncaughtExceptionLineNumber(), result.toString());
+
+    return ErrorMessage();
 }
 
 
