@@ -41,6 +41,8 @@
 #include <coreplugin/editormanager/ieditor.h>
 
 #include <wrap_helpers.h>
+#include "scriptwrappers.h"
+#include "enumwappers.h"
 
 using namespace Scripting;
 using namespace Scripting::Internal;
@@ -75,6 +77,7 @@ bool ScriptRunner::runScript(const QString &sourceCode, const QString fileName)
     return !failed;
 }
 
+
 ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
 {
     if (!m_engine.isNull())
@@ -89,7 +92,8 @@ ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
 
     registerGlobal(new Console, QLatin1String("console"));
     registerGlobal(new Editors, QLatin1String("editors"));
-
+    registerWrappers(m_engine.data());
+    registerEnums(m_engine.data());
     return m_engine;
 }
 

@@ -63,7 +63,7 @@ public slots:
     QString fileName() const;
 
 protected:
-    Core::IEditor *editor();
+    virtual Core::IEditor *editor() const;
 
     friend class Editors;
     virtual void waitForInitialized() {};

@@ -33,7 +33,7 @@
 #ifndef TEXTEDITORWRAPPER_H
 #define TEXTEDITORWRAPPER_H
 
-#include "editor.h"
+#include "texteditor.h"
 
 
 namespace TextEditor {
@@ -44,7 +44,7 @@ namespace TextEditor {
 namespace Scripting {
 namespace Internal {
 
-class BaseTextEditor : public Editor
+class BaseTextEditor : public TextEditor
 {
     Q_OBJECT
 public:
@@ -115,7 +115,7 @@ public slots:
     QString text();
 
 protected:
-    TextEditor::BaseTextEditorWidget *textEditorWidget();
+    ::TextEditor::BaseTextEditorWidget *textEditorWidget();
 };
 
 } // namespace Internal

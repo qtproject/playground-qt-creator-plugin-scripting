@@ -83,7 +83,7 @@ QString Editor::fileName() const
     return QString();
 }
 
-Core::IEditor * Editor::editor()
+Core::IEditor * Editor::editor() const
 {
     return m_editor;
 }

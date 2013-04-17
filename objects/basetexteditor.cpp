@@ -38,12 +38,10 @@
 
 #include <QTextCursor>
 
-using namespace Scripting;
 using namespace Scripting::Internal;
 
-
 BaseTextEditor::BaseTextEditor(QObject *parent) :
-    Editor(parent)
+    TextEditor(parent)
 {
 }
 
@@ -406,10 +404,10 @@ QString BaseTextEditor::text()
     return QString();
 }
 
-TextEditor::BaseTextEditorWidget *BaseTextEditor::textEditorWidget()
+::TextEditor::BaseTextEditorWidget * BaseTextEditor::textEditorWidget()
 {
-    TextEditor::BaseTextEditor *textEditor =
-            qobject_cast<TextEditor::BaseTextEditor*>(editor());
+    ::TextEditor::BaseTextEditor *textEditor =
+            qobject_cast< ::TextEditor::BaseTextEditor* >(editor());
     if (textEditor)
         return textEditor->editorWidget();
     return 0;
