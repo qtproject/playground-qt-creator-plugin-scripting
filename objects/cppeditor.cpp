@@ -2,7 +2,7 @@
 #include <cppeditor/cppeditor.h>
 #include <coreplugin/actionmanager/actionmanager.h>
 #include <cppeditor/cppeditorconstants.h>
-#include "signalwaiter.h"
+#include "utils/signalwaiter.h"
 
 namespace Scripting {
 namespace Internal {

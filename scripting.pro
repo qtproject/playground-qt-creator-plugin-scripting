@@ -15,7 +15,7 @@ SOURCES += scriptingplugin.cpp \
     objects/editor.cpp \
     objects/basetexteditor.cpp \
     objects/cppeditor.cpp \
-    objects/signalwaiter.cpp \
+    utils/signalwaiter.cpp \
     objects/texteditor.cpp \
     scriptwrappers.cpp \
     enumwappers.cpp
@@ -31,7 +31,7 @@ HEADERS += scriptingplugin.h \
     objects/editor.h \
     objects/basetexteditor.h \
     objects/cppeditor.h \
-    objects/signalwaiter.h \
+    utils/signalwaiter.h \
     objects/texteditor.h \
     scriptwrappers.h \
     objects/enums.h \
