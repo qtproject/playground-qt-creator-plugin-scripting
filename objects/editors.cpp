@@ -64,7 +64,7 @@ static Editor *wrapEditor(Core::IEditor *editor) {
 
 Editor * Editors::current()
 {
-        return wrapEditor(Core::EditorManager::instance()->currentEditor());
+    return wrapEditor(Core::EditorManager::instance()->currentEditor());
 }
 
 bool Editors::hasEditor(const QString &fileName)

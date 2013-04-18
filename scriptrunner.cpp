@@ -90,9 +90,6 @@ ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
     qRegisterMetaType<Editor*>("Editor*");
     SharedTools::registerQObject<Editor>(m_engine.data());
 
-    qRegisterMetaType<BaseTextEditor*>("BaseTextEditor*");
-    SharedTools::registerQObject<BaseTextEditor>(m_engine.data());
-
     registerGlobal(new Console, QLatin1String("console"));
     registerGlobal(new Editors, QLatin1String("editors"));
     registerWrappers(m_engine.data());
