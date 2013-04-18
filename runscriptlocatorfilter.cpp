@@ -40,6 +40,8 @@ using namespace Scripting::Internal;
 RunScriptLocatorFilter::RunScriptLocatorFilter(QObject *parent) :
     Locator::ILocatorFilter(parent)
 {
+    setId("Run Script");
+    setDisplayName(tr("Run Script"));
     setShortcutString(QLatin1String("rs"));
 }
 
