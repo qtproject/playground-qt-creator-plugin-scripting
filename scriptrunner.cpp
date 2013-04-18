@@ -43,6 +43,7 @@
 #include <wrap_helpers.h>
 #include "scriptwrappers.h"
 #include "enumwappers.h"
+#include "utils/dialogs.h"
 
 using namespace Scripting;
 using namespace Scripting::Internal;
@@ -92,6 +93,7 @@ ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
 
     registerGlobal(new Console, QLatin1String("console"));
     registerGlobal(new Editors, QLatin1String("editors"));
+    registerGlobal(new Dialogs, QLatin1String("dialogs"));
     registerWrappers(m_engine.data());
     registerEnums(m_engine.data());
     return m_engine;

@@ -18,7 +18,8 @@ SOURCES += scriptingplugin.cpp \
     utils/signalwaiter.cpp \
     objects/texteditor.cpp \
     scriptwrappers.cpp \
-    enumwappers.cpp
+    enumwappers.cpp \
+    utils/dialogs.cpp
 
 HEADERS += scriptingplugin.h \
     scripting_global.h \
@@ -35,7 +36,8 @@ HEADERS += scriptingplugin.h \
     objects/texteditor.h \
     scriptwrappers.h \
     objects/enums.h \
-    enumwappers.h
+    enumwappers.h \
+    utils/dialogs.h
 
 # Qt Creator linking
 
