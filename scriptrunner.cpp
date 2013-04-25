@@ -69,6 +69,10 @@ ScriptRunner::~ScriptRunner()
 // Path to the topmost script loaded.
 static QString currentPath;
 
+// The backtrace does unfortunately not include the file in which an error occurred,
+// we therefore need this variable to store this information.
+static QString errorFileName;
+
 static QScriptValue run(QScriptEngine* engine, const QString& fileName, bool recursive)
 {
     QFile file(fileName);
@@ -88,6 +92,8 @@ static QScriptValue run(QScriptEngine* engine, const QString& fileName, bool rec
         }
 
         QScriptValue result = engine->evaluate(sourceCode, fileName);
+        if (engine->hasUncaughtException() && errorFileName.isNull() )
+            errorFileName = fileName;
 
         return result;
     }
@@ -111,6 +117,7 @@ static QScriptValue load(QScriptContext *context, QScriptEngine *engine)
 
 ErrorMessage ScriptRunner::runScript(const QString fileName)
 {
+    errorFileName = QString();
     currentPath = QFileInfo(fileName).absolutePath();
     ensureEngineInitialized();
 
@@ -125,8 +132,8 @@ ErrorMessage ScriptRunner::runScript(const QString fileName)
     if (editorManager->currentEditor())
         editorManager->currentEditor()->widget()->setFocus(Qt::OtherFocusReason);
 
-    if ( failed)
-        return ErrorMessage(m_engine->uncaughtExceptionLineNumber(), result.toString());
+    if (failed)
+        return ErrorMessage(errorFileName, m_engine->uncaughtExceptionLineNumber(), result.toString());
 
     return ErrorMessage();
 }

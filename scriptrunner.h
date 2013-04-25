@@ -43,9 +43,10 @@ namespace Internal {
 
 struct ErrorMessage {
     ErrorMessage() : hasError(false) {}
-    ErrorMessage(int line, const QString& message) : hasError(true), line(line), message(message) {}
+    ErrorMessage(const QString& fileName, int line, const QString& message) : hasError(true), fileName(fileName), line(line), message(message) {}
 
     bool hasError;
+    QString fileName;
     int line;
     QString message;
 };
