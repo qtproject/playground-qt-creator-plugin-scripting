@@ -44,6 +44,8 @@
 #include "scriptwrappers.h"
 #include "enumwappers.h"
 #include "utils/dialogs.h"
+#include "objects/cppfunction.h"
+#include "objects/cppargument.h"
 
 using namespace Scripting;
 using namespace Scripting::Internal;
@@ -81,6 +83,7 @@ ErrorMessage ScriptRunner::runScript(const QString &sourceCode, const QString fi
     return ErrorMessage();
 }
 
+Q_DECLARE_METATYPE(QList<CppArgument*>)
 
 ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
 {
@@ -90,6 +93,14 @@ ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
 
     qRegisterMetaType<Editor*>("Editor*");
     SharedTools::registerQObject<Editor>(m_engine.data());
+
+    qRegisterMetaType<CppFunction*>("CppFunction*");
+    SharedTools::registerQObject<CppFunction>(m_engine.data());
+
+    qRegisterMetaType<CppArgument*>("CppArgument*");
+    SharedTools::registerQObject<CppArgument>(m_engine.data());
+
+    qScriptRegisterSequenceMetaType< QList<CppArgument*> >(m_engine.data());
 
     registerGlobal(new Console, QLatin1String("console"));
     registerGlobal(new Editors, QLatin1String("editors"));

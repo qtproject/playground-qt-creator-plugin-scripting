@@ -19,7 +19,9 @@ SOURCES += scriptingplugin.cpp \
     objects/texteditor.cpp \
     scriptwrappers.cpp \
     enumwappers.cpp \
-    utils/dialogs.cpp
+    utils/dialogs.cpp \
+    objects/cppfunction.cpp \
+    objects/cppargument.cpp
 
 HEADERS += scriptingplugin.h \
     scripting_global.h \
@@ -37,7 +39,9 @@ HEADERS += scriptingplugin.h \
     scriptwrappers.h \
     objects/enums.h \
     enumwappers.h \
-    utils/dialogs.h
+    utils/dialogs.h \
+    objects/cppfunction.h \
+    objects/cppargument.h
 
 # Qt Creator linking
 

@@ -3,6 +3,7 @@
 #include <coreplugin/actionmanager/actionmanager.h>
 #include <cppeditor/cppeditorconstants.h>
 #include "utils/signalwaiter.h"
+#include "cppfunction.h"
 
 namespace Scripting {
 namespace Internal {
@@ -17,6 +18,15 @@ void CppEditor::switchDeclarationDefinition()
     Core::ActionManager::command(::CppEditor::Constants::SWITCH_DECLARATION_DEFINITION)->action()->trigger();
 }
 
+CppFunction *CppEditor::currentFunction() const
+{
+    return functionAt(editor()->currentLine(), editor()->currentColumn());
+}
+
+CppFunction* CppEditor::functionAt(int line, int column) const
+{
+    return CppFunction::create(line, column, editor()->document()->fileName());
+}
 
 /**
  \brief Wait for the editor to signal that it has been initialized after opening a file

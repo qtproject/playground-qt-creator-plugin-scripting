@@ -13,6 +13,8 @@
 namespace Scripting {
 namespace Internal {
 
+class CppFunction;
+
 class CppEditor : public BaseTextEditor
 {
     Q_OBJECT
@@ -21,6 +23,8 @@ public:
 
 public slots:
     void switchDeclarationDefinition();
+    CppFunction* functionAt(int line, int column) const;
+    CppFunction* currentFunction() const;
 
 protected:
     void waitForInitialized();
