@@ -46,6 +46,11 @@
 #include "utils/dialogs.h"
 #include "objects/cppfunction.h"
 #include "objects/cppargument.h"
+#include <QTextStream>
+#include <QFile>
+#include <coreplugin/messagemanager.h>
+#include <utils/outputformat.h>
+#include <QFileInfo>
 
 using namespace Scripting;
 using namespace Scripting::Internal;
@@ -61,14 +66,57 @@ ScriptRunner::~ScriptRunner()
 {
 }
 
+// Path to the topmost script loaded.
+static QString currentPath;
 
-ErrorMessage ScriptRunner::runScript(const QString &sourceCode, const QString fileName)
+static QScriptValue run(QScriptEngine* engine, const QString& fileName, bool recursive)
 {
+    QFile file(fileName);
+    if (file.open(QIODevice::ReadOnly)) {
+
+        QTextStream stream(&file);
+        const QString sourceCode = stream.readAll();
+
+        if ( recursive ) {
+            // A script context is pushed by the include function call.
+            // Link that context to the one of the script that called include
+            // Only do that, however, when called from the scipt
+            QScriptContext *context = engine->currentContext();
+            QScriptContext *parent=context->parentContext();
+            context->setActivationObject(parent->activationObject());
+            context->setThisObject(parent->thisObject());
+        }
+
+        QScriptValue result = engine->evaluate(sourceCode, fileName);
+
+        return result;
+    }
+    else {
+        Core::MessageManager::instance()->printToOutputPane(QObject::tr("Error: %1 doesn't exist.\n").arg(fileName),
+                                                            Utils::ErrorMessageFormat);
+        engine->abortEvaluation();
+        return QScriptValue();
+    }
+}
+
+static QScriptValue load(QScriptContext *context, QScriptEngine *engine)
+{
+    QScriptValue callee = context->callee();
+    if (context->argumentCount() == 1)
+        return run(engine, currentPath + QLatin1String("/") + context->argument(0).toString(), true);
+    else
+        context->throwError(QObject::tr("Wrong number of arguments given to import"));
+    return QScriptValue();
+}
+
+ErrorMessage ScriptRunner::runScript(const QString fileName)
+{
+    currentPath = QFileInfo(fileName).absolutePath();
     ensureEngineInitialized();
 
+    // Ensure no polution of environment between script runs
     m_engine->pushContext();
-    QScriptValue result = m_engine->evaluate(sourceCode, fileName);
-
+    QScriptValue result = run(m_engine.data(), fileName, false);
     const bool failed = m_engine->hasUncaughtException();
     m_engine->popContext();
 
@@ -107,6 +155,8 @@ ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
     registerGlobal(new Dialogs, QLatin1String("dialogs"));
     registerWrappers(m_engine.data());
     registerEnums(m_engine.data());
+
+    m_engine->globalObject().setProperty(QLatin1String("include"), m_engine->newFunction(load));
     return m_engine;
 }
 

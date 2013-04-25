@@ -73,6 +73,9 @@ include($$QTCREATOR_SOURCES/src/plugins/cppeditor/cppeditor.pri)
 
 LIBS += -L$$IDE_PLUGIN_PATH/Nokia
 
+OTHER_FILES += \
+    examples/*
+
 
 
 

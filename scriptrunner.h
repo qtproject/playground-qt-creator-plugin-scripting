@@ -66,7 +66,7 @@ public:
     virtual ~ScriptRunner();
 
     // Run a script
-    ErrorMessage runScript(const QString &sourceCode, const QString fileName=QString());
+    ErrorMessage runScript(const QString fileName);
 
     QScriptEnginePtr scriptEngine() { return ensureEngineInitialized(); }
 

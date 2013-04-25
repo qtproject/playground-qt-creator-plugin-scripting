@@ -53,10 +53,7 @@
 #include <QMainWindow>
 #include <QDir>
 #include <QFileInfo>
-#include <QDebug>
 #include <QFileSystemWatcher>
-#include <QFile>
-#include <QTextStream>
 #include <QSignalMapper>
 
 
@@ -141,27 +138,16 @@ QStringList scriptListFromDir(const QString &path)
 
 void ScriptManager::runFile(const QString &fileName)
 {
-    QFile file(fileName);
-
-    if (file.open(QIODevice::ReadOnly)) {
-        QTextStream stream(&file);
-        const QString sourceCode = stream.readAll();
-
-        Core::MessageManager::instance()->showOutputPane();
-        Core::MessageManager::instance()->printToOutputPane(tr("Start %1...").arg(fileName),
-                                                            Utils::NormalMessageFormat);
-        ErrorMessage message = m_runner->runScript(sourceCode, fileName);
-        if (message.hasError)
-            Core::MessageManager::instance()->printToOutputPane(tr("Error at line %1: %2\n").arg(message.line).arg(message.message),
-                                                                Utils::ErrorMessageFormat);
-        else
-            Core::MessageManager::instance()->printToOutputPane(tr("The script  exited normally\n"),
-                                                                Utils::NormalMessageFormat);
-    }
-    else {
-        Core::MessageManager::instance()->printToOutputPane(tr("Error: %1 doesn't exist.\n").arg(fileName),
+    Core::MessageManager::instance()->showOutputPane();
+    Core::MessageManager::instance()->printToOutputPane(tr("Start %1...").arg(fileName),
+                                                        Utils::NormalMessageFormat);
+    ErrorMessage message = m_runner->runScript(fileName);
+    if (message.hasError)
+        Core::MessageManager::instance()->printToOutputPane(tr("Error at line %1: %2\n").arg(message.line).arg(message.message),
                                                             Utils::ErrorMessageFormat);
-    }
+    else
+        Core::MessageManager::instance()->printToOutputPane(tr("The script  exited normally\n"),
+                                                            Utils::NormalMessageFormat);
 }
 
 void ScriptManager::directoryChanged(const QString &path, bool initialize)
