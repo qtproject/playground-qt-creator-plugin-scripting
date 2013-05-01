@@ -44,11 +44,14 @@ namespace TextEditor {
 namespace Scripting {
 namespace Internal {
 
+class Mark;
+
 class BaseTextEditor : public TextEditor
 {
     Q_OBJECT
 public:
     explicit BaseTextEditor(QObject *parent=0);
+    ::TextEditor::BaseTextEditorWidget *textEditorWidget();
 
 public slots:
     void copy();
@@ -114,8 +117,8 @@ public slots:
     QString selectedText();
     QString text();
 
-protected:
-    ::TextEditor::BaseTextEditorWidget *textEditorWidget();
+    Mark* createMark(int line=-1, int column=-1);
+    void gotoMark(Mark*);
 };
 
 } // namespace Internal

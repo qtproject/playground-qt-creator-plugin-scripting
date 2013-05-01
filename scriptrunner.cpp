@@ -51,6 +51,7 @@
 #include <coreplugin/messagemanager.h>
 #include <utils/outputformat.h>
 #include <QFileInfo>
+#include "objects/mark.h"
 
 using namespace Scripting;
 using namespace Scripting::Internal;
@@ -154,6 +155,9 @@ ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
 
     qRegisterMetaType<CppArgument*>("CppArgument*");
     SharedTools::registerQObject<CppArgument>(m_engine.data());
+
+    qRegisterMetaType<Mark*>("Mark*");
+    SharedTools::registerQObject<Mark>(m_engine.data());
 
     qScriptRegisterSequenceMetaType< QList<CppArgument*> >(m_engine.data());
 

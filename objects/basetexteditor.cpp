@@ -37,6 +37,7 @@
 #include <coreplugin/messagemanager.h>
 
 #include <QTextCursor>
+#include "mark.h"
 
 using namespace Scripting::Internal;
 
@@ -402,6 +403,25 @@ QString BaseTextEditor::text()
     if (textEditorWidget())
         return textEditorWidget()->toPlainText();
     return QString();
+}
+
+/**
+ * @brief Create a mark for the given line and column
+ *
+ * If line and column isn't provided, the currentline and column is used.
+ */
+Mark *BaseTextEditor::createMark(int line, int column)
+{
+    if (line == -1)
+        line = currentLine();
+    if (column == -1)
+        column = currentColumn();
+    return Mark::create(this, line, column);
+}
+
+void BaseTextEditor::gotoMark(Mark * mark)
+{
+    gotoLine(mark->line(), mark->column());
 }
 
 ::TextEditor::BaseTextEditorWidget * BaseTextEditor::textEditorWidget()
