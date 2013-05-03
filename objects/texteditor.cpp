@@ -8,12 +8,6 @@ TextEditor::TextEditor(QObject *parent) :
 {
 }
 
-int TextEditor::find(const QString &string) const
-{
-    // Doesn't seem to do much.
-    return editor()->find(string);
-}
-
 int TextEditor::position(Enums::PositionOperation posOp, int at) const
 {
     return editor()->position( static_cast< ::TextEditor::ITextEditor::PositionOperation>(posOp), at);

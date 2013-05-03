@@ -16,7 +16,6 @@ public:
     explicit TextEditor(QObject *parent = 0);
 
 public slots:
-    int find(const QString &string) const;
     int position(Enums::PositionOperation posOp = Enums::Current, int at = -1) const;
     QPoint convertPosition(int pos) const;
     QRect cursorRect(int pos = -1) const;
