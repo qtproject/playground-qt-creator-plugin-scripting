@@ -424,6 +424,82 @@ void BaseTextEditor::gotoMark(Mark * mark)
     gotoLine(mark->line(), mark->column());
 }
 
+/**
+ * @brief Search for the given text
+ *
+ * In the case of search forward, the cursor will be placed after the match.
+ * In the case of seatch backeard, the cursor will be place before the match.
+ * @return true if a match is found
+ */
+bool BaseTextEditor::find(const QString &text, bool backward, bool caseSensitively, bool wholeWords)
+{
+    if (!textEditorWidget())
+        return false;
+    QTextDocument* doc = textEditorWidget()->document();
+
+    QTextCursor cursor = doc->find(text, position(), flags(backward,caseSensitively,wholeWords));
+
+    if (cursor.isNull())
+        return false;
+
+    if (backward)
+        setCursorPosition(cursor.anchor());
+    else
+        setCursorPosition(cursor.position());
+
+    return true;
+}
+
+/**
+ * @brief Search for the given regular expression.
+ *
+ * In the case of search forward, the cursor will be placed after the match.
+ * In the case of search backeard, the cursor will be place before the match.
+ * @return true if a match is found
+ */
+bool BaseTextEditor::findRegexp(const QString &regexp, bool backward, bool caseSensitively, bool wholeWords)
+{
+    if (!textEditorWidget())
+        return false;
+    QTextDocument* doc = textEditorWidget()->document();
+
+
+    QTextCursor cursor = doc->find(QRegExp(regexp), position(), flags(backward,caseSensitively,wholeWords));
+    if (cursor.isNull())
+        return false;
+
+    if (backward) {
+        // Unfortunately is the implementation of QTextDocument::find not greety,
+        // we therefore need to run the search until it no longer matches.
+        // Further the regexp object is copied in find(), so we will not be able to use it for capturing.
+        // We might consider roling our own copy similar to QTextDocument::find
+        const int endPoint = cursor.position();
+        int pos = cursor.anchor();
+        do {
+            --pos;
+            cursor = doc->find(QRegExp(regexp), pos, flags(false, caseSensitively, wholeWords));
+        } while ( !cursor.isNull() && cursor.position() == endPoint && cursor.anchor() == pos);
+        setCursorPosition(pos+1);
+    }
+    else
+        setCursorPosition(cursor.position());
+
+    return true;
+}
+
+QTextDocument::FindFlags BaseTextEditor::flags(bool backward, bool caseSensitively, bool wholeWords) const
+{
+    QTextDocument::FindFlags result;
+    if (backward)
+        result |= QTextDocument::FindBackward;
+    if (caseSensitively)
+        result |= QTextDocument::FindCaseSensitively;
+    if (wholeWords)
+        result |= QTextDocument::FindWholeWords;
+
+    return result;
+}
+
 ::TextEditor::BaseTextEditorWidget * BaseTextEditor::textEditorWidget()
 {
     ::TextEditor::BaseTextEditor *textEditor =

@@ -34,7 +34,7 @@
 #define TEXTEDITORWRAPPER_H
 
 #include "texteditor.h"
-
+#include <QTextDocument>
 
 namespace TextEditor {
     class BaseTextEditor;
@@ -117,8 +117,15 @@ public slots:
     QString selectedText();
     QString text();
 
+    // Own implementation - ie. not in the interface of ::TextEditor::BaseTextEditorWidget
     Mark* createMark(int line=-1, int column=-1);
     void gotoMark(Mark*);
+
+    bool find(const QString& text, bool backward = false, bool caseSensitively = false, bool wholeWords = false);
+    bool findRegexp(const QString& regexp, bool backward = false, bool caseSensitively = false, bool wholeWords = false);
+
+private:
+    QTextDocument::FindFlags flags(bool backward, bool caseSensitively, bool wholeWords) const;
 };
 
 } // namespace Internal
