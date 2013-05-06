@@ -31,7 +31,7 @@ private slots:
     void update(int from, int charsRemoved, int charsAdded);
 
 private:
-    Mark(BaseTextEditor* editor, int column, int line);
+    Mark(BaseTextEditor* editor, int line, int column);
     int convertPosition(int line,int column);
 
     int m_pos;

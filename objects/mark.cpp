@@ -4,10 +4,10 @@
 namespace Scripting {
 namespace Internal {
 
-Mark::Mark(BaseTextEditor *editor, int column, int line)
+Mark::Mark(BaseTextEditor *editor, int line, int column)
     :m_editor(editor)
 {
-    m_pos = convertPosition(column,line);
+    m_pos = convertPosition(line,column);
     ::TextEditor::BaseTextEditorWidget* widget = editor->textEditorWidget();
     QTextDocument* document = widget->document();
     connect( document, SIGNAL(contentsChange(int,int,int)), this, SLOT(update(int,int,int)));
