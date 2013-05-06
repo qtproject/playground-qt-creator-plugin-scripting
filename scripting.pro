@@ -1,4 +1,3 @@
-TARGET = Scripting
 TEMPLATE = lib
 QT += script
 
@@ -49,11 +48,11 @@ HEADERS += scriptingplugin.h \
 
 ## set the QTC_SOURCE environment variable to override the setting here
 QTCREATOR_SOURCES = $$(QTC_SOURCE)
-isEmpty(QTCREATOR_SOURCES):QTCREATOR_SOURCES=/d/dev/qt-creator/src
+isEmpty(QTCREATOR_SOURCES):error("Please set the environment variable QTC_SOURCE")
 
 ## set the QTC_BUILD environment variable to override the setting here
 IDE_BUILD_TREE = $$(QTC_BUILD)
-isEmpty(IDE_BUILD_TREE):IDE_BUILD_TREE=/d/dev/qt-creator/build-Debug
+isEmpty(IDE_BUILD_TREE):error("Please set the environment variable QTC_BUILD")
 
 ## uncomment to build plugin into user config directory
 ## <localappdata>/plugins/<ideversion>
@@ -65,15 +64,10 @@ USE_USER_DESTDIR = yes
 
 PROVIDER = KDAB
 
-include($$QTCREATOR_SOURCES/src/qtcreatorplugin.pri)
-include($$QTCREATOR_SOURCES/src/shared/scriptwrapper/scriptwrapper.pri)
-include($$QTCREATOR_SOURCES/src/plugins/coreplugin/coreplugin.pri)
-include($$QTCREATOR_SOURCES/src/plugins/locator/locator.pri)
-include($$QTCREATOR_SOURCES/src/plugins/projectexplorer/projectexplorer.pri)
-include($$QTCREATOR_SOURCES/src/plugins/texteditor/texteditor.pri)
-include($$QTCREATOR_SOURCES/src/plugins/cppeditor/cppeditor.pri)
+# FIXME: Once the qtscripts wrappers has been copied over, remove this.
+INCLUDEPATH += $(QTC_SOURCE)/src/shared
 
-LIBS += -L$$IDE_PLUGIN_PATH/Nokia
+include($$QTCREATOR_SOURCES/src/qtcreatorplugin.pri)
 
 OTHER_FILES += \
     examples/*

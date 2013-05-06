@@ -4,6 +4,7 @@
 #include <cppeditor/cppeditorconstants.h>
 #include "utils/signalwaiter.h"
 #include "cppfunction.h"
+#include <cpptools/cppmodelmanagerinterface.h>
 
 namespace Scripting {
 namespace Internal {
@@ -35,12 +36,12 @@ CppFunction* CppEditor::functionAt(int line, int column) const
 */
 void CppEditor::waitForInitialized()
 {
-    CPlusPlus::Snapshot snapshot = CPlusPlus::CppModelManagerInterface::instance()->snapshot();
+    CPlusPlus::Snapshot snapshot = CppTools::CppModelManagerInterface::instance()->snapshot();
     if (!snapshot.isEmpty())
         return;
 
     SignalWaiter waiter;
-    const bool received = waiter.wait(CPlusPlus::CppModelManagerInterface::instance(), SIGNAL(sourceFilesRefreshed(QStringList)), 1000);
+    const bool received = waiter.wait(CppTools::CppModelManagerInterface::instance(), SIGNAL(sourceFilesRefreshed(QStringList)), 1000);
     if ( !received )
         qWarning("editor did not complete initialization in time");
 }

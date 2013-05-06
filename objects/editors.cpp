@@ -39,6 +39,7 @@
 #include <texteditor/basetexteditor.h>
 #include <coreplugin/idocument.h>
 #include <coreplugin/editormanager/ieditor.h>
+#include <cpptools/cppmodelmanagerinterface.h>
 
 using namespace Scripting;
 using namespace Scripting::Internal;
@@ -52,7 +53,7 @@ static Editor *wrapEditor(Core::IEditor *editor) {
     Editor *wrapper;
 
     const QString fileName = editor->document()->fileName();
-    if ( CPlusPlus::CppModelManagerInterface::instance()->isCppEditor(editor) )
+    if ( CppTools::CppModelManagerInterface::instance()->isCppEditor(editor) )
         wrapper = new Scripting::Internal::CppEditor;
     else if (qobject_cast<TextEditor::BaseTextEditor*>(editor))
         wrapper = new BaseTextEditor;

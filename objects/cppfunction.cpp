@@ -1,6 +1,6 @@
 #include "cppfunction.h"
 #include <cplusplus/Symbol.h>
-#include <cpptools/ModelManagerInterface.h>
+#include <cpptools/cppmodelmanagerinterface.h>
 #include <cplusplus/Overview.h>
 #include "cppargument.h"
 
@@ -35,7 +35,7 @@ CppFunction *CppFunction::create(int line, int column, const QString &fileName)
 
 CPlusPlus::Function *CppFunction::function(int line, int column, const QString &fileName)
 {
-    const CPlusPlus::Snapshot snapshot = CPlusPlus::CppModelManagerInterface::instance()->snapshot();
+    const CPlusPlus::Snapshot snapshot = CppTools::CppModelManagerInterface::instance()->snapshot();
     const CPlusPlus::Document::Ptr document = snapshot.document(fileName);
     if (!document)
         return 0;

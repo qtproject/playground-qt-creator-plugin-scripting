@@ -140,14 +140,14 @@ void ScriptManager::runFile(const QString &fileName)
 {
     Core::MessageManager::instance()->showOutputPane();
     Core::MessageManager::instance()->printToOutputPane(tr("Start %1...").arg(fileName),
-                                                        Utils::NormalMessageFormat);
+                                                        Core::MessageManager::NoModeSwitch);
     ErrorMessage message = m_runner->runScript(fileName);
     if (message.hasError)
         Core::MessageManager::instance()->printToOutputPane(tr("Error in %1 at line %3: %4\n").arg(message.fileName).arg(message.line).arg(message.message),
-                                                            Utils::ErrorMessageFormat);
+                                                            Core::MessageManager::NoModeSwitch);
     else
         Core::MessageManager::instance()->printToOutputPane(tr("The script  exited normally\n"),
-                                                            Utils::NormalMessageFormat);
+                                                            Core::MessageManager::NoModeSwitch);
 }
 
 void ScriptManager::directoryChanged(const QString &path, bool initialize)
@@ -228,7 +228,8 @@ void ScriptManager::addScriptShortcut(const ScriptManager::Script &script)
     Core::Context globalContext(Core::Constants::C_GLOBAL);
     QShortcut *shortcut = new QShortcut(Core::ICore::mainWindow());
 
-    const Core::Id scriptId(makeScriptId(script));
+    // FIXME: fromString should not be used.
+    const Core::Id scriptId = Core::Id::fromString(makeScriptId(script));
 
     Core::ICore::actionManager()->registerShortcut(shortcut, scriptId, globalContext);
     connect(shortcut, SIGNAL(activated()), m_mapper, SLOT(map()));
@@ -238,6 +239,7 @@ void ScriptManager::addScriptShortcut(const ScriptManager::Script &script)
 void ScriptManager::removeScriptShortcut(const ScriptManager::Script &script)
 {
     // Remove shortcut
-    const Core::Id scriptId(makeScriptId(script));
+    // FIXME: fromString should not be used.
+    const Core::Id scriptId = Core::Id::fromString(makeScriptId(script));
     Core::ICore::actionManager()->unregisterShortcut(scriptId);
 }

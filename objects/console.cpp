@@ -47,15 +47,15 @@ Console::Console(QObject *parent) :
 
 void Console::error(const QString &text)
 {
-    Core::MessageManager::instance()->printToOutputPane(text, Utils::ErrorMessageFormat);
+    Core::MessageManager::instance()->printToOutputPane(text, Core::MessageManager::Flash);
 }
 
 void Console::log(const QString &text)
 {
-    Core::MessageManager::instance()->printToOutputPane(text, false);
+    Core::MessageManager::instance()->printToOutputPane(text, Core::MessageManager::NoModeSwitch);
 }
 
 void Console::debug(const QString &text)
 {
-    Core::MessageManager::instance()->printToOutputPane(text, Utils::DebugFormat);
+    Core::MessageManager::instance()->printToOutputPane(text, Core::MessageManager::NoModeSwitch);
 }

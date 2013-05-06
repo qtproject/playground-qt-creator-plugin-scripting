@@ -40,7 +40,7 @@
 #include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/ieditor.h>
 
-#include <wrap_helpers.h>
+#include <scriptwrapper/wrap_helpers.h>
 #include "scriptwrappers.h"
 #include "enumwappers.h"
 #include "utils/dialogs.h"
@@ -100,7 +100,7 @@ static QScriptValue run(QScriptEngine* engine, const QString& fileName, bool rec
     }
     else {
         Core::MessageManager::instance()->printToOutputPane(QObject::tr("Error: %1 doesn't exist.\n").arg(fileName),
-                                                            Utils::ErrorMessageFormat);
+                                                            Core::MessageManager::Flash);
         engine->abortEvaluation();
         return QScriptValue();
     }
