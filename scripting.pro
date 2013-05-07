@@ -64,9 +64,6 @@ USE_USER_DESTDIR = yes
 
 PROVIDER = KDAB
 
-# FIXME: Once the qtscripts wrappers has been copied over, remove this.
-INCLUDEPATH += $(QTC_SOURCE)/src/shared
-
 include($$QTCREATOR_SOURCES/src/qtcreatorplugin.pri)
 
 OTHER_FILES += \

@@ -40,7 +40,6 @@
 #include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/ieditor.h>
 
-#include <scriptwrapper/wrap_helpers.h>
 #include "scriptwrappers.h"
 #include "enumwappers.h"
 #include "utils/dialogs.h"
@@ -148,16 +147,16 @@ ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
     m_engine = QScriptEnginePtr(new QScriptEngine);
 
     qRegisterMetaType<Editor*>("Editor*");
-    SharedTools::registerQObject<Editor>(m_engine.data());
+    registerQObject<Editor>(m_engine.data());
 
     qRegisterMetaType<CppFunction*>("CppFunction*");
-    SharedTools::registerQObject<CppFunction>(m_engine.data());
+    registerQObject<CppFunction>(m_engine.data());
 
     qRegisterMetaType<CppArgument*>("CppArgument*");
-    SharedTools::registerQObject<CppArgument>(m_engine.data());
+    registerQObject<CppArgument>(m_engine.data());
 
     qRegisterMetaType<Mark*>("Mark*");
-    SharedTools::registerQObject<Mark>(m_engine.data());
+    registerQObject<Mark>(m_engine.data());
 
     qScriptRegisterSequenceMetaType< QList<CppArgument*> >(m_engine.data());
 
