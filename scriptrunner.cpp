@@ -132,6 +132,8 @@ ErrorMessage ScriptRunner::runScript(const QString fileName)
     if (editorManager->currentEditor())
         editorManager->currentEditor()->widget()->setFocus(Qt::OtherFocusReason);
 
+    m_engine->collectGarbage();
+
     if (failed)
         return ErrorMessage(errorFileName, m_engine->uncaughtExceptionLineNumber(), result.toString());
 

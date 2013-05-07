@@ -17,7 +17,7 @@ void registerWrappers(QScriptEngine* engine );
 template <class SomeQObject>
 static QScriptValue qObjectToScriptValue(QScriptEngine *engine, SomeQObject * const &qo)
 {
-    return engine->newQObject(qo, QScriptEngine::QtOwnership, QScriptEngine::ExcludeChildObjects);
+    return engine->newQObject(qo, QScriptEngine::AutoOwnership);
 }
 
 // Convert  Scriptvalue back to a class derived from  QObject via QScriptValue::toQObject()
