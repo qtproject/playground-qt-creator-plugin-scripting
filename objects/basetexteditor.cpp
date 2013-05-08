@@ -487,6 +487,12 @@ bool BaseTextEditor::findRegexp(const QString &regexp, bool backward, bool caseS
     return true;
 }
 
+void BaseTextEditor::indent()
+{
+    if (textEditorWidget())
+        textEditorWidget()->format();
+}
+
 QTextDocument::FindFlags BaseTextEditor::flags(bool backward, bool caseSensitively, bool wholeWords) const
 {
     QTextDocument::FindFlags result;
