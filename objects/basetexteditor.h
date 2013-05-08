@@ -35,6 +35,7 @@
 
 #include "texteditor.h"
 #include <QTextDocument>
+#include "utils/position.h"
 
 namespace TextEditor {
     class BaseTextEditor;
@@ -124,6 +125,7 @@ public slots:
     bool find(const QString& text, bool backward = false, bool caseSensitively = false, bool wholeWords = false);
     bool findRegexp(const QString& regexp, bool backward = false, bool caseSensitively = false, bool wholeWords = false);
     void indent();
+    void deleteRegion( const Position& from, const Position& to);
 
 private:
     QTextDocument::FindFlags flags(bool backward, bool caseSensitively, bool wholeWords) const;

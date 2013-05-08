@@ -487,6 +487,20 @@ bool BaseTextEditor::findRegexp(const QString &regexp, bool backward, bool caseS
     return true;
 }
 
+void BaseTextEditor::deleteRegion(const Position &from, const Position &to)
+{
+    QPointer<Mark> start = createMark();
+    gotoPosition(from);
+    int fromPos = nativePosition();
+    gotoPosition(to);
+    int toPos = nativePosition();
+    QTextCursor cursor( textEditorWidget()->document());
+    cursor.setPosition(fromPos);
+    cursor.setPosition(toPos, QTextCursor::KeepAnchor);
+    cursor.removeSelectedText();
+    gotoMark(start);
+}
+
 void BaseTextEditor::indent()
 {
     if (textEditorWidget())
