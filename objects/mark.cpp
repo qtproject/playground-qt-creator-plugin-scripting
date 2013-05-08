@@ -21,7 +21,7 @@ int Mark::convertPosition(int line, int column)
     const int origColumn = m_editor->currentColumn();
 
     m_editor->gotoLine(line, column);
-    const int result = m_editor->position();
+    const int result = m_editor->nativePosition();
 
     m_editor->gotoLine(origLine, origColumn);
 

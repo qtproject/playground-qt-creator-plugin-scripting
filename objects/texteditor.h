@@ -13,12 +13,12 @@ class TextEditor : public Editor
 {
     Q_OBJECT
 public:
-
     explicit TextEditor(QObject *parent = 0);
+    int nativePosition(Enums::PositionOperation posOp = Enums::Current, int at = -1) const;
+    Position convertPosition(int pos) const;
 
 public slots:
-    int position(Enums::PositionOperation posOp = Enums::Current, int at = -1) const;
-    Position convertPosition(int pos) const;
+    Position position(Enums::PositionOperation posOp = Enums::Current, int at = -1) const;
     QRect cursorRect(int pos = -1) const;
     int columnCount() const;
     int rowCount() const;

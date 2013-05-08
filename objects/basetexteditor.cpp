@@ -437,7 +437,7 @@ bool BaseTextEditor::find(const QString &text, bool backward, bool caseSensitive
         return false;
     QTextDocument* doc = textEditorWidget()->document();
 
-    QTextCursor cursor = doc->find(text, position(), flags(backward,caseSensitively,wholeWords));
+    QTextCursor cursor = doc->find(text, nativePosition(), flags(backward,caseSensitively,wholeWords));
 
     if (cursor.isNull())
         return false;
@@ -464,7 +464,7 @@ bool BaseTextEditor::findRegexp(const QString &regexp, bool backward, bool caseS
     QTextDocument* doc = textEditorWidget()->document();
 
 
-    QTextCursor cursor = doc->find(QRegExp(regexp), position(), flags(backward,caseSensitively,wholeWords));
+    QTextCursor cursor = doc->find(QRegExp(regexp), nativePosition(), flags(backward,caseSensitively,wholeWords));
     if (cursor.isNull())
         return false;
 

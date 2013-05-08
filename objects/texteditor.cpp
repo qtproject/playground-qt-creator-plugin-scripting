@@ -9,7 +9,7 @@ TextEditor::TextEditor(QObject *parent) :
 {
 }
 
-int TextEditor::position(Enums::PositionOperation posOp, int at) const
+int TextEditor::nativePosition(Enums::PositionOperation posOp, int at) const
 {
     return editor()->position( static_cast< ::TextEditor::ITextEditor::PositionOperation>(posOp), at);
 }
@@ -19,6 +19,11 @@ Position TextEditor::convertPosition(int pos) const
     int line, column;
     editor()->convertPosition(pos,&line,&column);
     return Position(line,column);
+}
+
+Position TextEditor::position(Enums::PositionOperation posOp, int at) const
+{
+    return convertPosition(nativePosition(posOp,at));
 }
 
 QRect TextEditor::cursorRect(int pos) const
