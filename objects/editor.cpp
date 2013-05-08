@@ -90,6 +90,11 @@ void Editor::gotoLine(int line, int column)
     m_editor->gotoLine(line, column);
 }
 
+void Editor::gotoPosition(const Position &pos)
+{
+    gotoLine(pos.line(), pos.column());
+}
+
 QString Editor::fileName() const
 {
     if (m_editor->document())

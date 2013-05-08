@@ -29,6 +29,7 @@ CppFunction *CppFunction::create(int line, int column, const QString &fileName)
     result->m_isConst = fun->isConst();
     result->m_isVolatile = fun->isVolatile();
     result->m_isPureVirtual = fun->isPureVirtual();
+    result->m_start = Position(fun->line(),fun->column());
 
     return result;
 }
@@ -142,6 +143,11 @@ bool CppFunction::isVolatile() const
 bool CppFunction::isPureVirtual() const
 {
     return m_isPureVirtual;
+}
+
+Position CppFunction::start() const
+{
+    return m_start;
 }
 
 

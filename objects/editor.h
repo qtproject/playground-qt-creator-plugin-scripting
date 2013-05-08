@@ -35,6 +35,7 @@
 
 #include <QObject>
 #include <QMetaType>
+#include "utils/position.h"
 
 namespace Core {
 class IEditor;
@@ -59,6 +60,7 @@ public slots:
     int currentLine() const;
     int currentColumn() const;
     void gotoLine(int line, int column=0);
+    void gotoPosition( const Position& pos );
 
     QString fileName() const;
 

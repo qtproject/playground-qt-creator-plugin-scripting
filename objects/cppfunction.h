@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QMetaType>
 #include <QList>
+#include "utils/position.h"
 
 namespace CPlusPlus {
     class Function;
@@ -27,6 +28,7 @@ class CppFunction : public QObject
     Q_PROPERTY( bool isConst READ isConst )
     Q_PROPERTY( bool isVolatile READ isVolatile )
     Q_PROPERTY( bool isPureVirtual READ isPureVirtual )
+    Q_PROPERTY( Position start READ start)
 
 public:
     static CppFunction* create(int line, int column, const QString& fileName);
@@ -40,6 +42,7 @@ public:
     bool isConst() const;
     bool isVolatile() const;
     bool isPureVirtual() const;
+    Position start() const;
 
 private:
     CppFunction();
@@ -58,6 +61,7 @@ private:
     bool m_isConst;
     bool m_isVolatile;
     bool m_isPureVirtual;
+    Position m_start;
 };
 
 } // namespace Internal
