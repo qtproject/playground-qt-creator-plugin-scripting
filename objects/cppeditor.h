@@ -18,6 +18,8 @@ class CppFunction;
 class CppEditor : public BaseTextEditor
 {
     Q_OBJECT
+    Q_PROPERTY( CppFunction* currentFunction READ currentFunction )
+
 public:
     explicit CppEditor(QObject *parent = 0);
 
