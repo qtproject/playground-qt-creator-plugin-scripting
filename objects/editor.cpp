@@ -61,16 +61,30 @@ bool Editor::save()
     return m_editor->document()->save(&errorString);
 }
 
+/**
+  @brief Returns the current line of the cursor
+  The line number is 1 based, therefore the first line of the document is line 1
+*/
 int Editor::currentLine() const
 {
     return m_editor->currentLine();
 }
 
+/*!
+  \brief return the column of the cursor.
+  The column is zero based, so the column before the first character is column 0
+ */
 int Editor::currentColumn() const
 {
-    return m_editor->currentColumn();
+    // Work around:
+    // Core::IEditor::currentColumn() is 1 based, while gotoLine is 0 based for the column.
+    return m_editor->currentColumn() -1;
 }
 
+/**
+  @brief goto the given line in the current document
+  line is one base, column is zero based. Therfore the position before the first character is line 1 column 0
+*/
 void Editor::gotoLine(int line, int column)
 {
     m_editor->gotoLine(line, column);
