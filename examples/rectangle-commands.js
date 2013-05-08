@@ -1,12 +1,12 @@
 var editor = editors.current()
 
 var anchorPos = editor.position(PositionOperation.Anchor)
-var anchorColumn = editor.convertPosition(anchorPos).x
-var anchorLine = editor.convertPosition(anchorPos).y
+var anchorColumn = editor.convertPosition(anchorPos).column
+var anchorLine = editor.convertPosition(anchorPos).line
 
 var pointPos = editor.position(PositionOperation.Current)
-var pointColumn = editor.convertPosition(pointPos).x
-var pointLine = editor.convertPosition(pointPos).y
+var pointColumn = editor.convertPosition(pointPos).column
+var pointLine = editor.convertPosition(pointPos).line
 
 var startColumn, endColumn, startLine, endLine
 if ( anchorLine < pointLine || (anchorLine == pointLine && anchorColumn < pointColumn)) {

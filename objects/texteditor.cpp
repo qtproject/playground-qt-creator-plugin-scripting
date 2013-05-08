@@ -1,4 +1,5 @@
 #include "texteditor.h"
+#include "utils/position.h"
 
 namespace Scripting {
 namespace Internal {
@@ -13,11 +14,11 @@ int TextEditor::position(Enums::PositionOperation posOp, int at) const
     return editor()->position( static_cast< ::TextEditor::ITextEditor::PositionOperation>(posOp), at);
 }
 
-QPoint TextEditor::convertPosition(int pos) const
+Position TextEditor::convertPosition(int pos) const
 {
     int line, column;
     editor()->convertPosition(pos,&line,&column);
-    return QPoint(column,line);
+    return Position(line,column);
 }
 
 QRect TextEditor::cursorRect(int pos) const

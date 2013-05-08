@@ -1,6 +1,8 @@
 #include "mark.h"
 #include "basetexteditor.h"
 #include <texteditor/basetexteditor.h>
+#include "utils/position.h"
+
 namespace Scripting {
 namespace Internal {
 
@@ -33,12 +35,12 @@ QString Mark::fileName() const
 
 int Mark::line() const
 {
-    return m_editor->convertPosition(m_pos).y();
+    return m_editor->convertPosition(m_pos).line();
 }
 
 int Mark::column() const
 {
-    return m_editor->convertPosition(m_pos).x();
+    return m_editor->convertPosition(m_pos).column();
 }
 
 void Mark::update(int from, int charsRemoved, int charsAdded)

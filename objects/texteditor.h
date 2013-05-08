@@ -4,6 +4,7 @@
 #include "editor.h"
 #include <texteditor/itexteditor.h>
 #include "enums.h"
+#include "utils/position.h"
 
 namespace Scripting {
 namespace Internal {
@@ -17,7 +18,7 @@ public:
 
 public slots:
     int position(Enums::PositionOperation posOp = Enums::Current, int at = -1) const;
-    QPoint convertPosition(int pos) const;
+    Position convertPosition(int pos) const;
     QRect cursorRect(int pos = -1) const;
     int columnCount() const;
     int rowCount() const;

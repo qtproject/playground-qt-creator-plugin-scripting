@@ -21,7 +21,8 @@ SOURCES += scriptingplugin.cpp \
     utils/dialogs.cpp \
     objects/cppfunction.cpp \
     objects/cppargument.cpp \
-    objects/mark.cpp
+    objects/mark.cpp \
+    utils/position.cpp
 
 HEADERS += scriptingplugin.h \
     scripting_global.h \
@@ -42,7 +43,8 @@ HEADERS += scriptingplugin.h \
     utils/dialogs.h \
     objects/cppfunction.h \
     objects/cppargument.h \
-    objects/mark.h
+    objects/mark.h \
+    utils/position.h
 
 # Qt Creator linking
 

@@ -160,6 +160,8 @@ ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
     qRegisterMetaType<Mark*>("Mark*");
     registerQObject<Mark>(m_engine.data());
 
+    qRegisterMetaType<Position>("Position");
+
     qScriptRegisterSequenceMetaType< QList<CppArgument*> >(m_engine.data());
 
     registerGlobal(new Console, QLatin1String("console"));
