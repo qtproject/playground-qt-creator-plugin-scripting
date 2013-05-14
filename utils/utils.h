@@ -2,7 +2,7 @@
 **
 ** This file is part of Qt Creator
 **
-** Copyright (C) 2011 Kläralvdalens Datakonsult AB, a KDAB Group company.
+** Copyright (C) 2013 Kläralvdalens Datakonsult AB, a KDAB Group company.
 **
 ** Contact: Kläralvdalens Datakonsult AB (info@kdab.com)
 **
@@ -30,59 +30,27 @@
 **
 **************************************************************************/
 
-#ifndef SCRIPTRUNNER_H
-#define SCRIPTRUNNER_H
+#ifndef SCRIPTING_INTERNAL_UTILS_H
+#define SCRIPTING_INTERNAL_UTILS_H
 
 #include <QObject>
-#include <QString>
-#include <QSharedPointer>
-#include <QScriptEngine>
+#include <QStringList>
 
 namespace Scripting {
 namespace Internal {
 
-struct ErrorMessage {
-    ErrorMessage() : hasError(false) {}
-    ErrorMessage(const QString& fileName, int line, const QString& message) : hasError(true), fileName(fileName), line(line), message(message) {}
-
-    bool hasError;
-    QString fileName;
-    int line;
-    QString message;
-};
-
-/**
- * \brief Script Runner
- *
- * Provide a script engine and a way to run scripts.
- * The script engine is initialized with interfaces.
- */
-class ScriptRunner : public QObject
+class Utils : public QObject
 {
     Q_OBJECT
 public:
-    typedef QSharedPointer<QScriptEngine> QScriptEnginePtr;
+    explicit Utils(QObject *parent = 0);
 
-    explicit ScriptRunner(QObject *parent = 0);
-    static ScriptRunner* instance();
-    virtual ~ScriptRunner();
-
-    // Run a script
-    ErrorMessage runScript(const QString fileName);
-
-    QScriptEnginePtr scriptEngine() { return ensureEngineInitialized(); }
-    static QString absolutePath(const QString& path);
-
-private:
-    QScriptEnginePtr ensureEngineInitialized();
-    void registerGlobal(QObject *object, const QString &name);
-
-private:
-    QScriptEnginePtr m_engine;
-    static ScriptRunner* m_instance;
+public slots:
+    QStringList subDirectories(const QString& directory) const;
+    QStringList backtrace() const;
 };
 
 } // namespace Internal
 } // namespace Scripting
 
-#endif // SCRIPTMANAGER_H
+#endif // SCRIPTING_INTERNAL_UTILS_H

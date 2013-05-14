@@ -51,23 +51,32 @@
 #include <utils/outputformat.h>
 #include <QFileInfo>
 #include "objects/mark.h"
+#include "utils/utils.h"
 
 using namespace Scripting;
 using namespace Scripting::Internal;
 
+namespace {
+    QString rootDir;
+}
+
+ScriptRunner* ScriptRunner::m_instance = 0;
 
 ScriptRunner::ScriptRunner(QObject *parent) :
    QObject(parent),
    m_engine(0)
 {
+    m_instance = this;
+}
+
+ScriptRunner *ScriptRunner::instance()
+{
+    return m_instance;
 }
 
 ScriptRunner::~ScriptRunner()
 {
 }
-
-// Path to the topmost script loaded.
-static QString currentPath;
 
 // The backtrace does unfortunately not include the file in which an error occurred,
 // we therefore need this variable to store this information.
@@ -108,8 +117,14 @@ static QScriptValue run(QScriptEngine* engine, const QString& fileName, bool rec
 static QScriptValue load(QScriptContext *context, QScriptEngine *engine)
 {
     QScriptValue callee = context->callee();
-    if (context->argumentCount() == 1)
-        return run(engine, currentPath + QLatin1String("/") + context->argument(0).toString(), true);
+    if (context->argumentCount() == 1) {
+        QString oldRoot = rootDir;
+        QString path = rootDir + QLatin1String("/") + context->argument(0).toString();
+        rootDir = QFileInfo(path).absolutePath();
+        const QScriptValue result = run(engine, path, true);
+        rootDir = oldRoot;
+        return result;
+    }
     else
         context->throwError(QObject::tr("Wrong number of arguments given to import"));
     return QScriptValue();
@@ -118,7 +133,7 @@ static QScriptValue load(QScriptContext *context, QScriptEngine *engine)
 ErrorMessage ScriptRunner::runScript(const QString fileName)
 {
     errorFileName = QString();
-    currentPath = QFileInfo(fileName).absolutePath();
+    rootDir = QFileInfo(fileName).absolutePath();
     ensureEngineInitialized();
 
     // Ensure no polution of environment between script runs
@@ -138,6 +153,19 @@ ErrorMessage ScriptRunner::runScript(const QString fileName)
         return ErrorMessage(errorFileName, m_engine->uncaughtExceptionLineNumber(), result.toString());
 
     return ErrorMessage();
+}
+
+/**
+  @brief Convert a relative path to an absolute path relative to the loaded scripts direcotry
+
+  Relative files referenced in the scripts, should always be relative to the script loaded.
+ */
+QString ScriptRunner::absolutePath(const QString &path)
+{
+    if (QFileInfo(path).isRelative() )
+        return rootDir + QLatin1String("/") + path;
+    else
+        return path;
 }
 
 Q_DECLARE_METATYPE(QList<CppArgument*>)
@@ -167,6 +195,7 @@ ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
     registerGlobal(new Console, QLatin1String("console"));
     registerGlobal(new Editors, QLatin1String("editors"));
     registerGlobal(new Dialogs, QLatin1String("dialogs"));
+    registerGlobal(new Utils, QLatin1String("utils"));
     registerWrappers(m_engine.data());
     registerEnums(m_engine.data());
 

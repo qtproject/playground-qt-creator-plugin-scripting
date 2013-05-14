@@ -40,6 +40,7 @@
 #include <coreplugin/idocument.h>
 #include <coreplugin/editormanager/ieditor.h>
 #include <cpptools/cppmodelmanagerinterface.h>
+#include "scriptrunner.h"
 
 using namespace Scripting;
 using namespace Scripting::Internal;
@@ -84,7 +85,7 @@ QStringList Editors::existingEditors()
 
 Editor *Editors::openFile(const QString &fileName)
 {
-    Core::IEditor* editor = Core::EditorManager::instance()->openEditor(fileName);
+    Core::IEditor* editor = Core::EditorManager::instance()->openEditor(ScriptRunner::absolutePath(fileName));
     if (editor) {
         Editor* wrapper = wrapEditor(editor);
         wrapper->waitForInitialized();

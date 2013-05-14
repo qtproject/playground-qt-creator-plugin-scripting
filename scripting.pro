@@ -22,7 +22,8 @@ SOURCES += scriptingplugin.cpp \
     objects/cppfunction.cpp \
     objects/cppargument.cpp \
     objects/mark.cpp \
-    utils/position.cpp
+    utils/position.cpp \
+    utils/utils.cpp
 
 HEADERS += scriptingplugin.h \
     scripting_global.h \
@@ -44,7 +45,8 @@ HEADERS += scriptingplugin.h \
     objects/cppfunction.h \
     objects/cppargument.h \
     objects/mark.h \
-    utils/position.h
+    utils/position.h \
+    utils/utils.h
 
 # Qt Creator linking
 
@@ -69,7 +71,13 @@ PROVIDER = KDAB
 include($$QTCREATOR_SOURCES/src/qtcreatorplugin.pri)
 
 OTHER_FILES += \
-    examples/*
+    examples/* \
+    tests/mark/test.cpp \
+    tests/mark/mark.qs \
+    tests/runtests.qs \
+    tests/positions/test.cpp \
+    tests/positions/positions.qs \
+    tests/test.js
 
 
 

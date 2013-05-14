@@ -2,7 +2,7 @@
 **
 ** This file is part of Qt Creator
 **
-** Copyright (C) 2011 Kläralvdalens Datakonsult AB, a KDAB Group company.
+** Copyright (C) 2013 Kläralvdalens Datakonsult AB, a KDAB Group company.
 **
 ** Contact: Kläralvdalens Datakonsult AB (info@kdab.com)
 **
@@ -30,59 +30,35 @@
 **
 **************************************************************************/
 
-#ifndef SCRIPTRUNNER_H
-#define SCRIPTRUNNER_H
-
-#include <QObject>
-#include <QString>
-#include <QSharedPointer>
-#include <QScriptEngine>
+#include "utils.h"
+#include <QDir>
+#include "scriptrunner.h"
 
 namespace Scripting {
 namespace Internal {
 
-struct ErrorMessage {
-    ErrorMessage() : hasError(false) {}
-    ErrorMessage(const QString& fileName, int line, const QString& message) : hasError(true), fileName(fileName), line(line), message(message) {}
-
-    bool hasError;
-    QString fileName;
-    int line;
-    QString message;
-};
-
-/**
- * \brief Script Runner
- *
- * Provide a script engine and a way to run scripts.
- * The script engine is initialized with interfaces.
- */
-class ScriptRunner : public QObject
+Utils::Utils(QObject *parent) :
+    QObject(parent)
 {
-    Q_OBJECT
-public:
-    typedef QSharedPointer<QScriptEngine> QScriptEnginePtr;
+}
 
-    explicit ScriptRunner(QObject *parent = 0);
-    static ScriptRunner* instance();
-    virtual ~ScriptRunner();
+QStringList Utils::subDirectories(const QString &directory) const
+{
+    QDir dir(ScriptRunner::absolutePath(directory));
+    return dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+}
 
-    // Run a script
-    ErrorMessage runScript(const QString fileName);
+QStringList Utils::backtrace() const
+{
+    QStringList result;
+    foreach ( const QString& str, ScriptRunner::instance()->scriptEngine()->currentContext()->backtrace() ) {
+        // Remove internal calls that is of no use to the script side
+        if ( !str.startsWith(QLatin1String("<")))
+            result.append(QLatin1String("\t") + str);
+    }
+    return result;
+}
 
-    QScriptEnginePtr scriptEngine() { return ensureEngineInitialized(); }
-    static QString absolutePath(const QString& path);
-
-private:
-    QScriptEnginePtr ensureEngineInitialized();
-    void registerGlobal(QObject *object, const QString &name);
-
-private:
-    QScriptEnginePtr m_engine;
-    static ScriptRunner* m_instance;
-};
 
 } // namespace Internal
 } // namespace Scripting
-
-#endif // SCRIPTMANAGER_H
