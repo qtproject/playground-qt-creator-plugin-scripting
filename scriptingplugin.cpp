@@ -34,8 +34,10 @@
 #include "scriptingconstants.h"
 #include "scriptmanager.h"
 #include "runscriptlocatorfilter.h"
+#include <coreplugin/messagemanager.h>
 
 #include <QtPlugin>
+#include <QFileInfo>
 
 using namespace Scripting::Internal;
 
@@ -50,12 +52,15 @@ ScriptingPlugin::~ScriptingPlugin()
 
 bool ScriptingPlugin::initialize(const QStringList &arguments, QString *errorString)
 {
-    Q_UNUSED(arguments)
     Q_UNUSED(errorString)
 
     addAutoReleasedObject(new RunScriptLocatorFilter);
 
     m_scriptManager = new ScriptManager(this);
+
+    for ( int i=0; i< arguments.count(); ++i )
+        if ( arguments[i] == QLatin1String("-execute-script"))
+            m_startUpScript = arguments[i+1];
 
     return true;
 }
@@ -65,6 +70,18 @@ void ScriptingPlugin::extensionsInitialized()
     // Retrieve objects from the plugin manager's object pool
     // "In the extensionsInitialized method, a plugin can be sure that all
     //  plugins that depend on it are completely initialized."
+}
+
+bool ScriptingPlugin::delayedInitialize()
+{
+    if ( m_startUpScript.isNull() )
+        return false;
+    if (!QFileInfo(m_startUpScript).exists())
+        Core::MessageManager::instance()->printToOutputPane(tr("File %1 doesn't exists").arg(m_startUpScript),
+                                                            Core::MessageManager::Flash);
+    else
+        m_scriptManager->runFile(m_startUpScript);
+    return true;
 }
 
 ExtensionSystem::IPlugin::ShutdownFlag ScriptingPlugin::aboutToShutdown()

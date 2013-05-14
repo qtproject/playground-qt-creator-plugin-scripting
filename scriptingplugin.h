@@ -71,10 +71,12 @@ public:
 
     bool initialize(const QStringList &arguments, QString *errorString);
     void extensionsInitialized();
+    bool delayedInitialize();
     ShutdownFlag aboutToShutdown();
 
 private:
     ScriptManager *m_scriptManager;
+    QString m_startUpScript;
 };
 
 } // namespace Internal

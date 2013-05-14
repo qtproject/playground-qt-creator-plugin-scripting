@@ -20,4 +20,7 @@ Alternatively, this plugin may be used under the terms of the GNU Lesser General
         <dependency name=\"TextEditor\" version=\"$$QTCREATOR_VERSION\"/>
         <dependency name=\"CppEditor\" version=\"$$QTCREATOR_VERSION\"/>
     </dependencyList>
+    <argumentList>
+        <argument name=\"-execute-script\" parameter=\"path\">execute the script specified</argument>
+    </argumentList>
 </plugin>
