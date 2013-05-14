@@ -34,6 +34,7 @@
 
 #include <coreplugin/editormanager/ieditor.h>
 #include <coreplugin/idocument.h>
+#include <coreplugin/editormanager/editormanager.h>
 
 using namespace Scripting;
 using namespace Scripting::Internal;
@@ -100,6 +101,11 @@ QString Editor::fileName() const
     if (m_editor->document())
         return m_editor->document()->fileName();
     return QString();
+}
+
+void Editor::close()
+{
+    Core::EditorManager::instance()->closeEditors(QList<Core::IEditor*>() << m_editor, false);
 }
 
 Core::IEditor * Editor::editor() const

@@ -63,6 +63,7 @@ public slots:
     void gotoPosition( const Position& pos );
 
     QString fileName() const;
+    void close();
 
 protected:
     virtual Core::IEditor *editor() const;
