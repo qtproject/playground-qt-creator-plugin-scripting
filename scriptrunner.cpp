@@ -52,6 +52,7 @@
 #include <QFileInfo>
 #include "objects/mark.h"
 #include "utils/utils.h"
+#include "objects/cppclass.h"
 
 using namespace Scripting;
 using namespace Scripting::Internal;
@@ -181,6 +182,9 @@ ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
 
     qRegisterMetaType<CppFunction*>("CppFunction*");
     registerQObject<CppFunction>(m_engine.data());
+
+    qRegisterMetaType<CppFunction*>("CppClass*");
+    registerQObject<CppClass>(m_engine.data());
 
     qRegisterMetaType<CppArgument*>("CppArgument*");
     registerQObject<CppArgument>(m_engine.data());

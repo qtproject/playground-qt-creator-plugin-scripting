@@ -5,6 +5,7 @@
 #include "utils/signalwaiter.h"
 #include "cppfunction.h"
 #include <cpptools/cppmodelmanagerinterface.h>
+#include "cppclass.h"
 
 namespace Scripting {
 namespace Internal {
@@ -22,6 +23,16 @@ void CppEditor::switchDeclarationDefinition()
 CppFunction *CppEditor::currentFunction() const
 {
     return functionAt(editor()->currentLine(), editor()->currentColumn());
+}
+
+CppClass *CppEditor::classAt(int line, int column) const
+{
+    return CppClass::create(line, column, editor()->document()->fileName());
+}
+
+CppClass* CppEditor::currentClass() const
+{
+    return classAt(editor()->currentLine(), editor()->currentColumn());
 }
 
 CppFunction* CppEditor::functionAt(int line, int column) const

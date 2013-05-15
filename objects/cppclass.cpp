@@ -1,0 +1,116 @@
+/**************************************************************************
+**
+** This file is part of Qt Creator
+**
+** Copyright (C) 2013 Kläralvdalens Datakonsult AB, a KDAB Group company.
+**
+** Contact: Kläralvdalens Datakonsult AB (info@kdab.com)
+**
+**
+** GNU Lesser General Public License Usage
+**
+** This file may be used under the terms of the GNU Lesser General Public
+** License version 2.1 as published by the Free Software Foundation and
+** appearing in the file LICENSE.LGPL included in the packaging of this file.
+** Please review the following information to ensure the GNU Lesser General
+** Public License version 2.1 requirements will be met:
+** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
+**
+** In addition, as a special exception, Nokia gives you certain additional
+** rights. These rights are described in the Nokia Qt LGPL Exception
+** version 1.1, included in the file LGPL_EXCEPTION.txt in this package.
+**
+** Other Usage
+**
+** Alternatively, this file may be used in accordance with the terms and
+** conditions contained in a signed written agreement between you and Nokia.
+**
+** If you have questions regarding the use of this file, please contact
+** Nokia at info@qt.nokia.com.
+**
+**************************************************************************/
+
+#include "cppclass.h"
+
+#include <cplusplus/Symbols.h>
+#include <cplusplus/Overview.h>
+#include <cpptools/cppmodelmanagerinterface.h>
+
+using namespace CPlusPlus;
+
+namespace Scripting {
+namespace Internal {
+
+
+CppClass *CppClass::create(int line, int column, const QString &fileName)
+{
+    Class* cls = fetchClass(line,column,fileName);
+    if (!cls)
+        return 0;
+
+    Overview ov;
+    // The Script takes ownership
+    CppClass* result = new CppClass;
+    result->m_name = ov(cls->name());
+    result->m_start = Position(cls->line(),cls->column());
+    result->m_isClass = cls->isClass();
+    result->m_isStruct = cls->isStruct();
+    result->m_isUnion = cls->isUnion();
+    for (unsigned int i=0; i<cls->baseClassCount();++i) {
+        BaseClass* base = cls->baseClassAt(i);
+        result->m_baseClasses.append(ov(base->name()));
+    }
+    return result;
+}
+
+QString CppClass::name() const
+{
+    return m_name;
+}
+
+Position CppClass::start() const
+{
+    return m_start;
+}
+
+bool CppClass::isClass() const
+{
+    return m_isClass;
+}
+
+bool CppClass::isStruct() const
+{
+    return m_isStruct;
+}
+
+bool CppClass::isUnion() const
+{
+    return m_isUnion;
+}
+
+QStringList CppClass::baseClasses() const
+{
+    return m_baseClasses;
+}
+
+CPlusPlus::Class *CppClass::fetchClass(int line, int column, const QString &fileName)
+{
+    const CPlusPlus::Snapshot snapshot = CppTools::CppModelManagerInterface::instance()->snapshot();
+    const CPlusPlus::Document::Ptr document = snapshot.document(fileName);
+    if (!document)
+        return 0;
+
+    CPlusPlus::Symbol *symbol = document->lastVisibleSymbolAt(line,column);
+    if (!symbol)
+        return 0;
+    if (!symbol->isClass())
+        symbol = symbol->enclosingClass();
+
+    if (!symbol)
+        return 0;
+
+    return symbol->asClass();
+}
+
+} // namespace Internal
+} // namespace Scripting

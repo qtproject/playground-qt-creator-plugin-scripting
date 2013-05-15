@@ -14,6 +14,7 @@ namespace Scripting {
 namespace Internal {
 
 class CppFunction;
+class CppClass;
 
 class CppEditor : public BaseTextEditor
 {
@@ -27,6 +28,8 @@ public slots:
     void switchDeclarationDefinition();
     CppFunction* functionAt(int line, int column) const;
     CppFunction* currentFunction() const;
+    CppClass *classAt(int line, int column) const;
+    CppClass *currentClass() const;
 
 protected:
     void waitForInitialized();

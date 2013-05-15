@@ -23,7 +23,8 @@ SOURCES += scriptingplugin.cpp \
     objects/cppargument.cpp \
     objects/mark.cpp \
     utils/position.cpp \
-    utils/utils.cpp
+    utils/utils.cpp \
+    objects/cppclass.cpp
 
 HEADERS += scriptingplugin.h \
     scripting_global.h \
@@ -46,7 +47,8 @@ HEADERS += scriptingplugin.h \
     objects/cppargument.h \
     objects/mark.h \
     utils/position.h \
-    utils/utils.h
+    utils/utils.h \
+    objects/cppclass.h
 
 # Qt Creator linking
 
@@ -77,7 +79,9 @@ OTHER_FILES += \
     tests/runtests.qs \
     tests/positions/test.cpp \
     tests/positions/positions.qs \
-    tests/test.js
+    tests/test.js \
+    tests/class/class.qs \
+    tests/class/test.h \
 
 
 
