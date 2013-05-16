@@ -39,12 +39,6 @@ Utils::Utils(QObject *parent) :
 {
 }
 
-QStringList Utils::subDirectories(const QString &directory) const
-{
-    QDir dir(ScriptRunner::absolutePath(directory));
-    return dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-}
-
 QStringList Utils::backtrace() const
 {
     QStringList result;

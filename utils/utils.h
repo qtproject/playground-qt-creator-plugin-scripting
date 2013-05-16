@@ -44,7 +44,6 @@ public:
     explicit Utils(QObject *parent = 0);
 
 public slots:
-    QStringList subDirectories(const QString& directory) const;
     QStringList backtrace() const;
 
 public:

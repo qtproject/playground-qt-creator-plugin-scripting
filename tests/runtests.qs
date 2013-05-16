@@ -1,7 +1,9 @@
 include("test.js")
 //-------------------- Main --------------------
 
-tests = utils.subDirectories(".")
+var dir = new QDir(utils.currentScripRoot);
+var tests = dir.entryList([], Filter.Dirs | Filter.NoDotAndDotDot);
+
 for (var i = 0; i < tests.length; i++) {
     runTest(tests[i])
 }
