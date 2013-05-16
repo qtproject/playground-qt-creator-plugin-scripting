@@ -56,6 +56,11 @@ QStringList Utils::backtrace() const
     return result;
 }
 
+QString Utils::currentScripRoot() const
+{
+    return ScriptRunner::currentScriptRoot();
+}
+
 
 } // namespace Internal
 } // namespace Scripting

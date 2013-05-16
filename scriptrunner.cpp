@@ -166,7 +166,14 @@ QString ScriptRunner::absolutePath(const QString &path)
         return path;
 }
 
+QString ScriptRunner::currentScriptRoot()
+{
+    return rootDir;
+}
+
 Q_DECLARE_METATYPE(QList<CppArgument*>)
+
+
 
 ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
 {

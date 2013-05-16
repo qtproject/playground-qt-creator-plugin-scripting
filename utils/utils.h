@@ -39,12 +39,16 @@ namespace Internal {
 class Utils : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString currentScripRoot READ currentScripRoot);
 public:
     explicit Utils(QObject *parent = 0);
 
 public slots:
     QStringList subDirectories(const QString& directory) const;
     QStringList backtrace() const;
+
+public:
+    QString currentScripRoot() const;
 };
 
 } // namespace Internal

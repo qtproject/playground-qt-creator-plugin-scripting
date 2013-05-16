@@ -72,4 +72,18 @@ if (TEST_JS_LOADED == undefined) {
         compare(editor.currentColumn(), column, message)
     }
 
+    function assert(cond, message) {
+        if ( verbose ) {
+            if ( message != undefined )
+                console.log("assert(" + message + "): " + cond)
+            else
+                console.log("assert: " + cond)
+        }
+        if ( !cond ) {
+            if ( message != undefined )
+                error("Assertion failed: " + message)
+            else
+                error("Assertion failed")
+        }
+    }
 }

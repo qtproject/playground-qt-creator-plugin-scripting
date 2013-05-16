@@ -30,10 +30,13 @@
 #include "scriptwrappers.h"
 #include <QRect>
 #include "utils/position.h"
+#include <QFileInfo>
+#include "qfileinfoprototype.h"
 
 namespace Scripting {
 namespace Internal {
 
+// ==================== Position ====================
 QScriptValue scriptValueFromPosition(QScriptEngine *engine, const Position &pos)
 {
   QScriptValue obj = engine->newObject();
@@ -48,6 +51,7 @@ void PositionFromScriptValue(const QScriptValue &obj, Position& pos)
     pos.setColumn( obj.property(QLatin1String("column")).toInt32() );
 }
 
+// ==================== QRect ====================
 QScriptValue scriptValueFromQRect(QScriptEngine *engine, const QRect &rect)
 {
   QScriptValue obj = engine->newObject();
@@ -66,11 +70,26 @@ void QRectFromScriptValue(const QScriptValue &obj, QRect& rect)
     rect.setHeight( obj.property(QLatin1String("height")).toInt32() );
 }
 
+// ==================== Prototypes ====================
+
+#define registerProtoType(WrappedType, Prototype) \
+{\
+    const int typeId = qRegisterMetaType<WrappedType>(#WrappedType);\
+    QScriptValue prototype = engine->newQObject(new Prototype );\
+    engine->setDefaultPrototype( typeId, prototype );\
+\
+    QScriptValue creator = engine->newFunction( Prototype::construct, prototype );\
+    engine->globalObject().setProperty(QLatin1String(#WrappedType), creator);\
+}
+
+
 
 void registerWrappers(QScriptEngine* engine )
 {
     qScriptRegisterMetaType(engine, scriptValueFromPosition, PositionFromScriptValue );
     qScriptRegisterMetaType(engine, scriptValueFromQRect, QRectFromScriptValue );
+
+    registerProtoType(QFileInfo, QFileInfoPrototype);
 }
 
 } // namespace Internal

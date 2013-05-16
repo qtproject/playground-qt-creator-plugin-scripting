@@ -69,6 +69,7 @@ public:
 
     QScriptEnginePtr scriptEngine() { return ensureEngineInitialized(); }
     static QString absolutePath(const QString& path);
+    static QString currentScriptRoot();
 
 private:
     QScriptEnginePtr ensureEngineInitialized();

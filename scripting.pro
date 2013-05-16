@@ -24,7 +24,8 @@ SOURCES += scriptingplugin.cpp \
     objects/mark.cpp \
     utils/position.cpp \
     utils/utils.cpp \
-    objects/cppclass.cpp
+    objects/cppclass.cpp \
+    wrappers/qfileinfoprototype.cpp
 
 HEADERS += scriptingplugin.h \
     scripting_global.h \
@@ -48,7 +49,8 @@ HEADERS += scriptingplugin.h \
     objects/mark.h \
     utils/position.h \
     utils/utils.h \
-    objects/cppclass.h
+    objects/cppclass.h \
+    wrappers/qfileinfoprototype.h
 
 # Qt Creator linking
 
@@ -82,6 +84,8 @@ OTHER_FILES += \
     tests/test.js \
     tests/class/class.qs \
     tests/class/test.h \
+    tests/qfileinfo/qfileinfo.qs \
+    tests/qfileinfo/test.cpp
 
 
 
