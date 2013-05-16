@@ -28,26 +28,11 @@
 ****************************************************************************/
 
 #include "scriptwrappers.h"
-#include <QPoint>
 #include <QRect>
 #include "utils/position.h"
 
 namespace Scripting {
 namespace Internal {
-
-QScriptValue scriptValueFromQPoint(QScriptEngine *engine, const QPoint &point)
-{
-  QScriptValue obj = engine->newObject();
-  obj.setProperty(QLatin1String("x"), point.x());
-  obj.setProperty(QLatin1String("y"), point.y());
-  return obj;
-}
-
-void QPointFromScriptValue(const QScriptValue &obj, QPoint& point)
-{
-    point.setX( obj.property(QLatin1String("x")).toInt32() );
-    point.setY( obj.property(QLatin1String("y")).toInt32() );
-}
 
 QScriptValue scriptValueFromPosition(QScriptEngine *engine, const Position &pos)
 {
@@ -84,7 +69,6 @@ void QRectFromScriptValue(const QScriptValue &obj, QRect& rect)
 
 void registerWrappers(QScriptEngine* engine )
 {
-    qScriptRegisterMetaType(engine, scriptValueFromQPoint, QPointFromScriptValue );
     qScriptRegisterMetaType(engine, scriptValueFromPosition, PositionFromScriptValue );
     qScriptRegisterMetaType(engine, scriptValueFromQRect, QRectFromScriptValue );
 }
