@@ -16,8 +16,8 @@ SOURCES += scriptingplugin.cpp \
     objects/cppeditor.cpp \
     utils/signalwaiter.cpp \
     objects/texteditor.cpp \
-    scriptwrappers.cpp \
-    enumwappers.cpp \
+    wrappers/scriptwrappers.cpp \
+    wrappers/enumwappers.cpp \
     utils/dialogs.cpp \
     objects/cppfunction.cpp \
     objects/cppargument.cpp \
@@ -39,9 +39,9 @@ HEADERS += scriptingplugin.h \
     objects/cppeditor.h \
     utils/signalwaiter.h \
     objects/texteditor.h \
-    scriptwrappers.h \
+    wrappers/scriptwrappers.h \
     objects/enums.h \
-    enumwappers.h \
+    wrappers/enumwappers.h \
     utils/dialogs.h \
     objects/cppfunction.h \
     objects/cppargument.h \

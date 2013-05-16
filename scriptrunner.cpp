@@ -37,8 +37,8 @@
 #include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/ieditor.h>
 
-#include "scriptwrappers.h"
-#include "enumwappers.h"
+#include "wrappers/scriptwrappers.h"
+#include "wrappers/enumwappers.h"
 #include "utils/dialogs.h"
 #include "objects/cppfunction.h"
 #include "objects/cppargument.h"
