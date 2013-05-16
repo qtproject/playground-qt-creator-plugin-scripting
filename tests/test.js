@@ -46,10 +46,12 @@ if (TEST_JS_LOADED == undefined) {
         logCompare(act,exp,message)
         if (act.length != exp.length)
             failCompare(act,exp,message)
-        for (var i=0; i<act.length; ++i) {
-            if (act[i] != exp[i]) {
-                failCompare(act,exp,message)
-                break
+        else {
+            for (var i=0; i<act.length; ++i) {
+                if (act[i] != exp[i]) {
+                    failCompare(act,exp,message)
+                    break
+                }
             }
         }
     }
