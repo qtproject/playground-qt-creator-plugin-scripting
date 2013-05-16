@@ -32,6 +32,7 @@
 
 #include <QObject>
 #include <QMetaType>
+#include <QDir>
 
 /** This class exports enums needed on the scripting side
 
@@ -50,8 +51,53 @@ public:
         EndOfDoc = 5
     };
     Q_ENUMS(PositionOperation)
+
+    enum Filter {
+        Dirs = QDir::Dirs,
+        Files = QDir::Files,
+        Drives = QDir::Drives,
+        NoSymLinks = QDir::NoSymLinks,
+        AllEntries = QDir::AllEntries,
+        TypeMask = QDir::TypeMask,
+        Readable = QDir::Readable,
+        Writable = QDir::Writable,
+        Executable = QDir::Executable,
+        PermissionMask = QDir::PermissionMask,
+        Modified = QDir::Modified,
+        Hidden = QDir::Hidden,
+        System = QDir::System,
+        AccessMask = QDir::AccessMask,
+        AllDirs = QDir::AllDirs,
+        CaseSensitive = QDir::CaseSensitive,
+        NoDotAndDotDot = QDir::NoDotAndDotDot,
+        NoDot = QDir::NoDot,
+        NoDotDot = QDir::NoDotDot,
+        NoFilter = QDir::NoFilter,
+    };
+    Q_ENUMS(Filter)
+
+    enum SortFlag {
+        Name = QDir::Name,
+        Time = QDir::Time,
+        Size = QDir::Size,
+        Unsorted = QDir::Unsorted,
+        SortByMask = QDir::SortByMask,
+
+        DirsFirst = QDir::DirsFirst,
+        Reversed = QDir::Reversed,
+        IgnoreCase = QDir::IgnoreCase,
+        DirsLast = QDir::DirsLast,
+        LocaleAware = QDir::LocaleAware,
+        Type = QDir::Type,
+        NoSort = QDir::NoSort
+    };
+    Q_ENUMS(SortFlag)
+
+    static QDir::Filters convertFilters(int filters);
+    static QDir::SortFlags convertSortFlag(int sort);
 };
 
 Q_DECLARE_METATYPE(Enums::PositionOperation)
-
+Q_DECLARE_METATYPE(Enums::Filter)
+Q_DECLARE_METATYPE(Enums::SortFlag)
 #endif // ENUMS_H

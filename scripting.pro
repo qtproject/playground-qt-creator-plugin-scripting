@@ -25,7 +25,9 @@ SOURCES += scriptingplugin.cpp \
     utils/position.cpp \
     utils/utils.cpp \
     objects/cppclass.cpp \
-    wrappers/qfileinfoprototype.cpp
+    wrappers/qfileinfoprototype.cpp \
+    wrappers/qdirprototype.cpp \
+    objects/enums.cpp
 
 HEADERS += scriptingplugin.h \
     scripting_global.h \
@@ -50,7 +52,8 @@ HEADERS += scriptingplugin.h \
     utils/position.h \
     utils/utils.h \
     objects/cppclass.h \
-    wrappers/qfileinfoprototype.h
+    wrappers/qfileinfoprototype.h \
+    wrappers/qdirprototype.h
 
 # Qt Creator linking
 
@@ -85,7 +88,8 @@ OTHER_FILES += \
     tests/class/class.qs \
     tests/class/test.h \
     tests/qfileinfo/qfileinfo.qs \
-    tests/qfileinfo/test.cpp
+    tests/qfileinfo/test.cpp \
+    tests/qdir/qdir.qs
 
 
 

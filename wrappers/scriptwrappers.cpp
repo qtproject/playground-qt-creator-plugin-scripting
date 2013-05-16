@@ -32,6 +32,7 @@
 #include "utils/position.h"
 #include <QFileInfo>
 #include "qfileinfoprototype.h"
+#include "qdirprototype.h"
 
 namespace Scripting {
 namespace Internal {
@@ -90,6 +91,7 @@ void registerWrappers(QScriptEngine* engine )
     qScriptRegisterMetaType(engine, scriptValueFromQRect, QRectFromScriptValue );
 
     registerProtoType(QFileInfo, QFileInfoPrototype);
+    registerProtoType(QDir,QDirPrototype);
 }
 
 } // namespace Internal

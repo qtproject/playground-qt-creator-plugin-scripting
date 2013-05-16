@@ -53,10 +53,14 @@ static QScriptValue toScriptValue##ENUM(QScriptEngine *engine, const CLASS::ENUM
 }
 
 createEnumStatics(Enums,PositionOperation)
+createEnumStatics(Enums,Filter)
+createEnumStatics(Enums,SortFlag)
 
 void registerEnums(QScriptEngine* engine )
 {
     registerEnum(engine, Enums, PositionOperation);
+    registerEnum(engine, Enums, Filter);
+    registerEnum(engine, Enums, SortFlag);
 }
 
 } // namespace Internal
