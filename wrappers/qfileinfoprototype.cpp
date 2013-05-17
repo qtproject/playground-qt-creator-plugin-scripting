@@ -37,16 +37,11 @@ namespace Internal {
 
 QScriptValue QFileInfoPrototype::construct(QScriptContext *context, QScriptEngine *engine)
 {
-    if ( context->isCalledAsConstructor() ) {
-        if ( context->argumentCount() != 1 ) {
-            context->throwError(tr("QFileInfo object must be constructed with a filename as parameter"));
-            return engine->undefinedValue();
-        }
-        return engine->toScriptValue( QFileInfo(context->argument(0).toString()));
-    }
-    else {
+    if ( context->argumentCount() != 1 ) {
+        context->throwError(tr("QFileInfo object must be constructed with a filename as parameter"));
         return engine->undefinedValue();
     }
+    return engine->toScriptValue( QFileInfo(context->argument(0).toString()));
 }
 
 #define FILE qscriptvalue_cast<QFileInfo>(thisObject())
