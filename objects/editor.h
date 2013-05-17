@@ -45,22 +45,29 @@ class Editors;
 class Editor : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY( bool exists READ exists )
+    Q_PROPERTY( QString fileName READ fileName )
+    Q_PROPERTY( int currentColumn READ currentColumn )
+    Q_PROPERTY( int currentLine READ currentLine)
+
 public:
     explicit Editor(QObject *parent=0);
 
     void setEditor(Core::IEditor *editor);
 
 public slots:
-    bool exists() const;
     bool save();
 
-    int currentLine() const;
-    int currentColumn() const;
     void gotoLine(int line, int column=0);
     void gotoPosition( const Position& pos );
 
-    QString fileName() const;
     void close();
+
+public:
+    bool exists() const;
+    int currentLine() const;
+    int currentColumn() const;
+    QString fileName() const;
 
 protected:
     virtual Core::IEditor *editor() const;

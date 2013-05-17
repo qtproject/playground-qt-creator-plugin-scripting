@@ -68,8 +68,8 @@ if (TEST_JS_LOADED == undefined) {
     }
 
     function verifyPosition(line,column, message) {
-        compare(editor.currentLine(), line, message)
-        compare(editor.currentColumn(), column, message)
+        compare(editor.currentLine, line, message)
+        compare(editor.currentColumn, column, message)
     }
 
     function assert(cond, message) {
