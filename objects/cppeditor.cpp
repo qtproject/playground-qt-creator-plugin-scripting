@@ -35,6 +35,7 @@
 #include "cppfunction.h"
 #include <cpptools/cppmodelmanagerinterface.h>
 #include "cppclass.h"
+#include <cpptools/cpptoolsplugin.h>
 
 namespace Scripting {
 namespace Internal {
@@ -47,6 +48,11 @@ CppEditor::CppEditor(QObject *parent) :
 void CppEditor::switchDeclarationDefinition()
 {
     Core::ActionManager::command(::CppEditor::Constants::SWITCH_DECLARATION_DEFINITION)->action()->trigger();
+}
+
+void CppEditor::switchHeaderSourceFile()
+{
+    CppTools::Internal::CppToolsPlugin::instance()->switchHeaderSource();
 }
 
 CppFunction *CppEditor::currentFunction() const

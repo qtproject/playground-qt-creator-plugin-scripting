@@ -55,6 +55,7 @@ public:
 
 public slots:
     void switchDeclarationDefinition();
+    void switchHeaderSourceFile();
     CppFunction* functionAt(int line, int column) const;
     CppFunction* currentFunction() const;
     CppClass *classAt(int line, int column) const;
