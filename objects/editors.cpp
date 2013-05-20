@@ -38,7 +38,8 @@
 #include <coreplugin/editormanager/ieditor.h>
 #include <cpptools/cppmodelmanagerinterface.h>
 #include "scriptrunner.h"
-
+#include <designer/formwindoweditor.h>
+#include <texteditor/plaintexteditor.h>
 using namespace Scripting;
 using namespace Scripting::Internal;
 
@@ -55,8 +56,14 @@ static Editor *wrapEditor(Core::IEditor *editor) {
         wrapper = new Scripting::Internal::CppEditor;
     else if (qobject_cast<TextEditor::BaseTextEditor*>(editor))
         wrapper = new BaseTextEditor;
+    else if ( Designer::FormWindowEditor* designerEditor = qobject_cast<Designer::FormWindowEditor*>(editor) ) {
+        wrapper = new BaseTextEditor;
+        wrapper->setEditor(designerEditor->textEditor());
+        return wrapper;
+    }
     else
         wrapper = new Editor;
+
     wrapper->setEditor(editor);
     return wrapper;
 }

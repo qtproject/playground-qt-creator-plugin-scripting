@@ -4,3 +4,4 @@ QTC_PLUGIN_DEPENDS += \
     coreplugin \
     projectexplorer \
     cpptools \
+    designer
