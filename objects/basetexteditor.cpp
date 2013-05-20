@@ -498,6 +498,24 @@ void BaseTextEditor::deleteRegion(const Position &from, const Position &to)
     gotoMark(start);
 }
 
+void BaseTextEditor::gotoDocumentStart()
+{
+    gotoLine(1,0);
+}
+
+void BaseTextEditor::gotoDocumentEnd()
+{
+    gotoLine(lineCount());
+    gotoLineEnd();
+}
+
+int BaseTextEditor::lineCount()
+{
+    if (textEditorWidget())
+        return textEditorWidget()->document()->blockCount();
+    return 0;
+}
+
 void BaseTextEditor::indent()
 {
     if (textEditorWidget())
