@@ -45,7 +45,7 @@ public:
     explicit Dialogs(QObject *parent = 0);
 
 public slots:
-    static QString getText(const QString& title, const QString &label, const QString& defaultValue = QString());
+    QString getText(const QString& title, const QString &label, const QString& defaultValue = QString());
 };
 
 } // namespace Internal
