@@ -30,6 +30,7 @@
 #include "utils.h"
 #include <QDir>
 #include "scriptrunner.h"
+#include <QFile>
 
 namespace Scripting {
 namespace Internal {
@@ -53,6 +54,25 @@ QStringList Utils::backtrace() const
 QString Utils::currentScripRoot() const
 {
     return ScriptRunner::currentScriptRoot();
+}
+
+bool Scripting::Internal::Utils::copyFile(const QString &from, const QString &to)
+{
+    QFile fromFile(from);
+    if ( !fromFile.open(QFile::ReadOnly)) {
+        return false;
+    }
+
+    QFile toFile(to);
+    if (!toFile.open(QFile::WriteOnly)) {
+        return false;
+    }
+
+    QByteArray content = fromFile.readAll();
+    toFile.write(content);
+    fromFile.close();
+    toFile.close();
+    return true;
 }
 
 

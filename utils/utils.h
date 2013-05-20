@@ -45,6 +45,7 @@ public:
 
 public slots:
     QStringList backtrace() const;
+    bool copyFile(const QString& from, const QString& to);
 
 public:
     QString currentScripRoot() const;
