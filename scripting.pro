@@ -27,7 +27,8 @@ SOURCES += scriptingplugin.cpp \
     objects/cppclass.cpp \
     wrappers/qfileinfoprototype.cpp \
     wrappers/qdirprototype.cpp \
-    objects/enums.cpp
+    objects/enums.cpp \
+    objects/git.cpp
 
 HEADERS += scriptingplugin.h \
     scripting_global.h \
@@ -53,7 +54,8 @@ HEADERS += scriptingplugin.h \
     utils/utils.h \
     objects/cppclass.h \
     wrappers/qfileinfoprototype.h \
-    wrappers/qdirprototype.h
+    wrappers/qdirprototype.h \
+    objects/git.h
 
 # Qt Creator linking
 

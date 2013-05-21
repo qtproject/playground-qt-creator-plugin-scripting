@@ -50,6 +50,7 @@
 #include "objects/mark.h"
 #include "utils/utils.h"
 #include "objects/cppclass.h"
+#include "objects/git.h"
 
 using namespace Scripting;
 using namespace Scripting::Internal;
@@ -204,6 +205,7 @@ ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
     registerGlobal(new Editors, QLatin1String("editors"));
     registerGlobal(new Dialogs, QLatin1String("dialogs"));
     registerGlobal(new Utils, QLatin1String("utils"));
+    registerGlobal(new Git, QLatin1String("git"));
     registerWrappers(m_engine.data());
     registerEnums(m_engine.data());
 
