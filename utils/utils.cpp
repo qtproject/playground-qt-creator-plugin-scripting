@@ -75,6 +75,13 @@ bool Scripting::Internal::Utils::copyFile(const QString &from, const QString &to
     return true;
 }
 
+void Utils::touchFile(const QString &fileName)
+{
+    QFile file(fileName);
+    file.open(QFile::Append);
+    file.close();
+}
+
 
 } // namespace Internal
 } // namespace Scripting

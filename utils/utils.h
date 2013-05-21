@@ -46,6 +46,7 @@ public:
 public slots:
     QStringList backtrace() const;
     bool copyFile(const QString& from, const QString& to);
+    void touchFile(const QString& fileName);
 
 public:
     QString currentScripRoot() const;
