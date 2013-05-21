@@ -29,7 +29,7 @@
 
 #include "dialogs.h"
 #include <QInputDialog>
-
+#include <QMessageBox>
 namespace Scripting {
 namespace Internal {
 
@@ -41,6 +41,18 @@ Dialogs::Dialogs(QObject *parent) :
 QString Dialogs::getText(const QString &title, const QString& label, const QString &defaultValue)
 {
     return QInputDialog::getText(0, title, label, QLineEdit::Normal, defaultValue);
+}
+
+bool Dialogs::yesNoQuestion(const QString &title, const QString &label, const QString& details, const QString& yesLabel, const QString& noLabel)
+{
+    QMessageBox box;
+    box.setWindowTitle(title);
+    box.setText(label);
+    if ( !details.isEmpty() )
+        box.setDetailedText(details);
+    box.addButton(yesLabel, QMessageBox::AcceptRole);
+    box.addButton(noLabel, QMessageBox::RejectRole);
+    return box.exec() == QMessageBox::AcceptRole;
 }
 
 } // namespace Internal

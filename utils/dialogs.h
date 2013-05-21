@@ -46,6 +46,7 @@ public:
 
 public slots:
     QString getText(const QString& title, const QString &label, const QString& defaultValue = QString());
+    bool yesNoQuestion(const QString& title, const QString &label, const QString &details = QString(), const QString &yesLabel = tr("Yes"), const QString &noLabel = tr("No"));
 };
 
 } // namespace Internal
