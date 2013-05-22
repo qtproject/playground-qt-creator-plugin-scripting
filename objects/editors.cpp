@@ -40,6 +40,7 @@
 #include "scriptrunner.h"
 #include <designer/formwindoweditor.h>
 #include <texteditor/plaintexteditor.h>
+#include <coreplugin/coreconstants.h>
 using namespace Scripting;
 using namespace Scripting::Internal;
 
@@ -93,7 +94,13 @@ QStringList Editors::existingEditors()
 
 Editor *Editors::openFile(const QString &fileName)
 {
-    Core::IEditor* editor = Core::EditorManager::instance()->openEditor(ScriptRunner::absolutePath(fileName));
+    Core::IEditor* editor;
+    if (fileName.endsWith(QLatin1String(".ui"))) {
+        // Force the text editor for UI files, otherwise it will be read only in text mode.
+        editor = Core::EditorManager::instance()->openEditor(ScriptRunner::absolutePath(fileName), Core::Constants::K_DEFAULT_TEXT_EDITOR_ID);
+    }
+    else
+        editor = Core::EditorManager::instance()->openEditor(ScriptRunner::absolutePath(fileName) );
     if (editor) {
         Editor* wrapper = wrapEditor(editor);
         wrapper->waitForInitialized();
