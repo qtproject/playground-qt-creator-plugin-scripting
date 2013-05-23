@@ -51,6 +51,7 @@
 #include "utils/utils.h"
 #include "objects/cppclass.h"
 #include "objects/git.h"
+#include "objects/ast.h"
 
 using namespace Scripting;
 using namespace Scripting::Internal;
@@ -206,6 +207,7 @@ ScriptRunner::QScriptEnginePtr ScriptRunner::ensureEngineInitialized()
     registerGlobal(new Dialogs, QLatin1String("dialogs"));
     registerGlobal(new Utils, QLatin1String("utils"));
     registerGlobal(new Git, QLatin1String("git"));
+    registerGlobal(new Ast, QLatin1String("ast"));
     registerWrappers(m_engine.data());
     registerEnums(m_engine.data());
 
