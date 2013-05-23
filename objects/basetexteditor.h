@@ -124,11 +124,13 @@ public slots:
     bool findRegexp(const QString& regexp, bool backward = false, bool caseSensitively = false, bool wholeWords = false);
     void indent();
     void deleteRegion( const Position& from, const Position& to);
+    QString text( const Position& from, const Position& to);
     void gotoDocumentStart();
     void gotoDocumentEnd();
     int lineCount();
 
 private:
+    QString fetchSelectionAndDelete( const Position& from, const Position& to, bool del);
     QTextDocument::FindFlags flags(bool backward, bool caseSensitively, bool wholeWords) const;
 };
 

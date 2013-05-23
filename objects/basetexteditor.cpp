@@ -486,16 +486,7 @@ bool BaseTextEditor::findRegexp(const QString &regexp, bool backward, bool caseS
 
 void BaseTextEditor::deleteRegion(const Position &from, const Position &to)
 {
-    QPointer<Mark> start = createMark();
-    gotoPosition(from);
-    int fromPos = nativePosition();
-    gotoPosition(to);
-    int toPos = nativePosition();
-    QTextCursor cursor( textEditorWidget()->document());
-    cursor.setPosition(fromPos);
-    cursor.setPosition(toPos, QTextCursor::KeepAnchor);
-    cursor.removeSelectedText();
-    gotoMark(start);
+    fetchSelectionAndDelete(from, to, true);
 }
 
 void BaseTextEditor::gotoDocumentStart()
@@ -514,6 +505,23 @@ int BaseTextEditor::lineCount()
     if (textEditorWidget())
         return textEditorWidget()->document()->blockCount();
     return 0;
+}
+
+QString BaseTextEditor::fetchSelectionAndDelete(const Position &from, const Position &to, bool del)
+{
+    QPointer<Mark> start = createMark();
+    gotoPosition(from);
+    int fromPos = nativePosition();
+    gotoPosition(to);
+    int toPos = nativePosition();
+    QTextCursor cursor( textEditorWidget()->document());
+    cursor.setPosition(fromPos);
+    cursor.setPosition(toPos, QTextCursor::KeepAnchor);
+    QString text = cursor.selectedText();
+    if (del)
+        cursor.removeSelectedText();
+    gotoMark(start);
+    return text;
 }
 
 void BaseTextEditor::indent()
@@ -542,4 +550,10 @@ QTextDocument::FindFlags BaseTextEditor::flags(bool backward, bool caseSensitive
     if (textEditor)
         return textEditor->editorWidget();
     return 0;
+}
+
+
+QString Scripting::Internal::BaseTextEditor::text(const Scripting::Internal::Position &from, const Scripting::Internal::Position &to)
+{
+    return fetchSelectionAndDelete(from, to, false);
 }
