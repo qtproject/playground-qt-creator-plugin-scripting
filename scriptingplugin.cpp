@@ -71,6 +71,12 @@ void ScriptingPlugin::extensionsInitialized()
 
 bool ScriptingPlugin::delayedInitialize()
 {
+    // Load init script
+    const QString initScript = m_scriptManager->defaultDirectory() + QLatin1String("/init.qs");
+    if ( QFile::exists(initScript) )
+        m_scriptManager->runFile(initScript);
+
+    // If a startup script is specified, load that.
     if ( m_startUpScript.isNull() )
         return false;
     if (!QFileInfo(m_startUpScript).exists())

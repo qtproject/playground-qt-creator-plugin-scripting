@@ -170,7 +170,7 @@ void ScriptManager::directoryChanged(const QString &path, bool initialize)
     foreach (const QString &fileName, files) {
         QFileInfo fi(fileName);
 
-        if (fi.isReadable()) {
+        if (fi.isReadable() && fi.fileName() != QLatin1String("init.qs")) {
             Script script;
             script.fileName = fileName;
             script.name = fi.baseName();
