@@ -80,6 +80,7 @@ public:
     QString defaultDirectory() const;
     QString scriptDirectory(ProjectExplorer::Project *project) const;
     ScriptList scriptList() const;
+    void addScriptPath(const QString& path);
 
 public slots:
     void runFile(const QString &scriptName);

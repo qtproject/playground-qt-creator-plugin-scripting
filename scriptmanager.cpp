@@ -118,6 +118,12 @@ ScriptManager::ScriptList ScriptManager::scriptList() const
     return m_scriptList;
 }
 
+void ScriptManager::addScriptPath(const QString &path)
+{
+    m_watcher->addPath(path);
+    directoryChanged(path, true);
+}
+
 QStringList scriptListFromDir(const QString &path)
 {
     QDir dir(path);

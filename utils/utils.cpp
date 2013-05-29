@@ -31,6 +31,7 @@
 #include <QDir>
 #include "scriptrunner.h"
 #include <QFile>
+#include <scriptmanager.h>
 
 namespace Scripting {
 namespace Internal {
@@ -80,6 +81,11 @@ void Utils::touchFile(const QString &fileName)
     QFile file(fileName);
     file.open(QFile::Append);
     file.close();
+}
+
+void Utils::addScriptPath(const QString &path)
+{
+    ScriptManager::instance()->addScriptPath(path);
 }
 
 
