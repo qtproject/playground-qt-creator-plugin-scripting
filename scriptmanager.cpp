@@ -135,15 +135,9 @@ QStringList scriptListFromDir(const QString &path)
 
 void ScriptManager::runFile(const QString &fileName)
 {
-    Core::MessageManager::instance()->showOutputPane();
-    Core::MessageManager::instance()->printToOutputPane(tr("Start %1...").arg(fileName),
-                                                        Core::MessageManager::NoModeSwitch);
     ErrorMessage message = m_runner->runScript(fileName);
     if (message.hasError)
         Core::MessageManager::instance()->printToOutputPane(tr("Error in %1 at line %3: %4\n").arg(message.fileName).arg(message.line).arg(message.message),
-                                                            Core::MessageManager::NoModeSwitch);
-    else
-        Core::MessageManager::instance()->printToOutputPane(tr("The script  exited normally\n"),
                                                             Core::MessageManager::NoModeSwitch);
 }
 
